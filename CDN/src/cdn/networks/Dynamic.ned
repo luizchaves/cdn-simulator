@@ -19,7 +19,6 @@ network Dynamic
 {
     submodules:
         builder: NetBuilder {
-            nodesFile = "/home/lucachaves/program/omnetpp-4.1/samples/CDN/src/cdn/networks/nodes.txt";
             connectionsFile = "/home/lucachaves/program/omnetpp-4.1/samples/CDN/src/cdn/networks/connections.txt";
         }
 }

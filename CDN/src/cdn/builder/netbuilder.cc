@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include <omnetpp.h>
+#include <crng.h>
 
 
 /**
@@ -16,11 +17,21 @@ class NetBuilder : public cSimpleModule
   protected:
     void connect(cGate *src, cGate *dest, double delay, double ber, double datarate);
     void buildNetwork(cModule *parent);
+    void connectClient(cModule *parent);
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
+    std::map<long ,cModule*> nodeid2mod;
+    int numberRouter;
+    int numberStorage;
+    int numberRefletor;
+    int numberIndexador;
+    int numberProcessador;
+    int numberClient;
+    long totalModule;
 private:
-    std::map<long ,cModule*> generateModuleCDNStatic(cModule *parent);
+    std::map<long ,cModule*> generateModuleCDNDyn(cModule *parent);
     void generateConnectionCDNStatic(std::map<long ,cModule*> & nodeid2mod);
+    void generateConnectionCDNRandom(std::map<long ,cModule*> & nodeid2mod);
 };
 
 Define_Module(NetBuilder);
@@ -40,7 +51,8 @@ void NetBuilder::handleMessage(cMessage *msg)
         error("This module does not process messages.");
 
     delete msg;
-    buildNetwork(getParentModule());
+
+	buildNetwork(getParentModule());
 }
 
 void NetBuilder::connect(cGate *src, cGate *dest, double delay, double ber, double datarate)
@@ -59,18 +71,18 @@ void NetBuilder::connect(cGate *src, cGate *dest, double delay, double ber, doub
     src->connectTo(dest, channel);
 }
 
-std::map<long ,cModule*> NetBuilder::generateModuleCDNStatic(cModule *parent)
+std::map<long ,cModule*> NetBuilder::generateModuleCDNDyn(cModule *parent)
 {
     //number of CDN elements
-	int numberRouter = par("numberRouter").longValue();
-    int numberStorage = par("numberStorage").longValue();
-    int numberRefletor = par("numberRefletor").longValue();
-    int numberIndexador = par("numberIndexador").longValue();
-    int numberProcessador = par("numberProcessador").longValue();
+	numberRouter = par("numberRouter").longValue();
+    numberStorage = par("numberStorage").longValue();
+    numberRefletor = par("numberRefletor").longValue();
+    numberIndexador = par("numberIndexador").longValue();
+    numberProcessador = par("numberProcessador").longValue();
 
     std::map<long ,cModule*> nodeid2mod;
 
-    long totalModule = numberRouter + numberStorage + numberRefletor + numberIndexador + numberProcessador;
+    totalModule = numberRouter + numberStorage + numberRefletor + numberIndexador + numberProcessador;
 
     // create module
     for(int var = 0;var < totalModule;++var){
@@ -96,21 +108,29 @@ std::map<long ,cModule*> NetBuilder::generateModuleCDNStatic(cModule *parent)
             if(var < numberRouter + numberStorage){
                 mod = modtype->create("storage", parent);
                 mod->setName(std::string("storage").append(number.str()).c_str());
+                mod->par("numUdpApps").setLongValue(1000);
+                mod->par("udpAppType").setStringValue("Storage");
                 displayString = "i=device/server";
             }else
                 if(var < numberRouter + numberStorage + numberRefletor){
                     mod = modtype->create("refletor", parent);
                     mod->setName(std::string("refletor").append(number.str()).c_str());
+                    mod->par("numUdpApps").setLongValue(1000);
+                    mod->par("udpAppType").setStringValue("Refletor");
                     displayString = "i=abstract/db";
                 }else
                     if(var < numberRouter + numberStorage + numberRefletor + numberIndexador){
                         mod = modtype->create("indexador", parent);
                         mod->setName(std::string("indexador").append(number.str()).c_str());
+                        mod->par("numUdpApps").setLongValue(1000);
+                        mod->par("udpAppType").setStringValue("Indexador");
                         displayString = "i=block/network2";
                     }else
                         if(var < numberRouter + numberStorage + numberRefletor + numberIndexador + numberProcessador){
                             mod = modtype->create("processador", parent);
                             mod->setName(std::string("processador").append(number.str()).c_str());
+                            mod->par("numUdpApps").setLongValue(1000);
+                            mod->par("udpAppType").setStringValue("Processador");
                             displayString = "i=device/cpu";
                         }
 
@@ -161,11 +181,64 @@ void NetBuilder::generateConnectionCDNStatic(std::map<long ,cModule*> & nodeid2m
     }
 }
 
+void NetBuilder::generateConnectionCDNRandom(std::map<long ,cModule*> & nodeid2mod)
+{
+	long srcnodeid;
+	long destnodeid;
+	double datarate;
+	double delay = 0.01;
+	double error = 0;
+
+	for(int var = 0;var < totalModule;++var){
+		if(var < numberRouter){
+			srcnodeid = var;
+			destnodeid = (long) uniform(0, numberRouter, (int) dblrand()*1e6);
+			destnodeid = (destnodeid == var)?var+1:destnodeid;
+			datarate = uniform(1e6, 1e10, (int) dblrand()*1e6);
+		}else
+			if(var < numberRouter + numberStorage){
+				srcnodeid = var;
+				destnodeid = (long) uniform(0, numberRouter, (int) dblrand()*1e6);
+				datarate = 1e9;
+			}else
+				if(var < numberRouter + numberStorage + numberRefletor){
+					srcnodeid = var;
+					// each storage connect with one router
+					destnodeid = var - (numberRouter + numberStorage);
+					datarate = 1e9;
+				}else
+					if(var < numberRouter + numberStorage + numberRefletor + numberIndexador){
+						srcnodeid = var;
+						destnodeid = (long) uniform(0, numberRouter, (int) dblrand()*1e6);
+						datarate = 1e9;
+					}else
+						if(var < numberRouter + numberStorage + numberRefletor + numberIndexador + numberProcessador){
+							srcnodeid = var;
+							destnodeid = (long) uniform(0, numberRouter, (int) dblrand()*1e6);
+							datarate = 1e9;
+						}
+		EV << srcnodeid << " " << destnodeid << endl;
+		if(nodeid2mod.find(srcnodeid) == nodeid2mod.end())
+			throw cRuntimeError("wrong line in connections file: node with id=%ld not found", srcnodeid);
+
+		if(nodeid2mod.find(destnodeid) == nodeid2mod.end())
+			throw cRuntimeError("wrong line in connections file: node with id=%ld not found", destnodeid);
+
+		cModule *srcmod = nodeid2mod[srcnodeid];
+		cModule *destmod = nodeid2mod[destnodeid];
+		cGate *srcIn, *srcOut, *destIn, *destOut;
+		srcmod->getOrCreateFirstUnconnectedGatePair("pppg", false, true, srcIn, srcOut);
+		destmod->getOrCreateFirstUnconnectedGatePair("pppg", false, true, destIn, destOut);
+		// connect
+		connect(srcOut, destIn, delay, error, datarate);
+		connect(destOut, srcIn, delay, error, datarate);
+	}
+}
+
 void NetBuilder::buildNetwork(cModule *parent)
 {
-    std::map<long ,cModule*> nodeid2mod = generateModuleCDNStatic(parent);
-    generateConnectionCDNStatic(nodeid2mod);
-    //Dynamic
+    nodeid2mod = generateModuleCDNDyn(parent);
+    generateConnectionCDNRandom(nodeid2mod);
 
     std::map<long,cModule *>::iterator it;
 
@@ -187,6 +260,52 @@ void NetBuilder::buildNetwork(cModule *parent)
         }
     }
 
+    // Connect client
+    connectClient(parent);
 }
 
 
+void NetBuilder::connectClient(cModule *parent){
+	numberClient = par("numberClient").longValue();
+	for(int var = totalModule;var < numberClient+totalModule;++var){
+		cModuleType *modtype = cModuleType::get("src.cdn.node.CDNNode");
+		if(!modtype){
+			throw cRuntimeError("module type `%s' for node `%d' not found", "src.cdn.node.CDNNode", var);
+		}
+
+		std::stringstream number;
+		number << var;
+
+		cModule *mod = modtype->create("client", parent);
+		mod->setName(std::string("client").append(number.str()).c_str());
+        mod->par("numUdpApps").setLongValue(1000);
+        mod->par("udpAppType").setStringValue("Client");
+
+		nodeid2mod[var] = mod;
+		// read params from the ini file, etc
+		mod->finalizeParameters();
+
+		long srcnodeid = var;
+		long destnodeid = (long) uniform(0, numberRouter, (int) dblrand()*1e6);
+		double datarate = 1e6;
+		double delay = 0.01;
+		double error = 0;
+		EV << srcnodeid << " " << destnodeid << endl;
+		if(nodeid2mod.find(srcnodeid) == nodeid2mod.end())
+			throw cRuntimeError("wrong line in connections file: node with id=%ld not found", srcnodeid);
+
+		if(nodeid2mod.find(destnodeid) == nodeid2mod.end())
+			throw cRuntimeError("wrong line in connections file: node with id=%ld not found", destnodeid);
+
+		cModule *srcmod = nodeid2mod[srcnodeid];
+		cModule *destmod = nodeid2mod[destnodeid];
+		cGate *srcIn, *srcOut, *destIn, *destOut;
+		srcmod->getOrCreateFirstUnconnectedGatePair("pppg", false, true, srcIn, srcOut);
+		destmod->getOrCreateFirstUnconnectedGatePair("pppg", false, true, destIn, destOut);
+		// connect
+		connect(srcOut, destIn, delay, error, datarate);
+		connect(destOut, srcIn, delay, error, datarate);
+	}
+
+
+}

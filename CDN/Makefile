@@ -19,7 +19,8 @@ INCLUDE_PATH = \
     -Isrc \
     -Isrc/cdn \
     -Isrc/cdn/builder \
-    -Isrc/cdn/netBuilder \
+    -Isrc/cdn/builder/netBuilder \
+    -Isrc/cdn/content \
     -Isrc/cdn/networks \
     -Isrc/cdn/node \
     -Isrc/cdn/results
@@ -39,6 +40,9 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 # Object files for local .cc and .msg files
 OBJS = \
     $O/src/cdn/builder/netbuilder.o \
+    $O/src/cdn/content/Video.o \
+    $O/src/cdn/content/VideoSet.o \
+    $O/src/cdn/content/Segment.o \
     $O/src/cdn/node/Storage.o \
     $O/src/cdn/node/Processador.o \
     $O/src/cdn/node/Refletor.o \
@@ -114,7 +118,8 @@ clean:
 	-rm -f src/*_m.cc src/*_m.h
 	-rm -f src/cdn/*_m.cc src/cdn/*_m.h
 	-rm -f src/cdn/builder/*_m.cc src/cdn/builder/*_m.h
-	-rm -f src/cdn/netBuilder/*_m.cc src/cdn/netBuilder/*_m.h
+	-rm -f src/cdn/builder/netBuilder/*_m.cc src/cdn/builder/netBuilder/*_m.h
+	-rm -f src/cdn/content/*_m.cc src/cdn/content/*_m.h
 	-rm -f src/cdn/networks/*_m.cc src/cdn/networks/*_m.h
 	-rm -f src/cdn/node/*_m.cc src/cdn/node/*_m.h
 	-rm -f src/cdn/results/*_m.cc src/cdn/results/*_m.h
@@ -123,10 +128,21 @@ cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc src/*.cc src/cdn/*.cc src/cdn/builder/*.cc src/cdn/netBuilder/*.cc src/cdn/networks/*.cc src/cdn/node/*.cc src/cdn/results/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc src/*.cc src/cdn/*.cc src/cdn/builder/*.cc src/cdn/builder/netBuilder/*.cc src/cdn/content/*.cc src/cdn/networks/*.cc src/cdn/node/*.cc src/cdn/results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/src/cdn/builder/netbuilder.o: src/cdn/builder/netbuilder.cc
+$O/src/cdn/content/Segment.o: src/cdn/content/Segment.cc \
+	src/cdn/content/Segment.h
+$O/src/cdn/content/Video.o: src/cdn/content/Video.cc \
+	src/cdn/content/Segment.h \
+	src/cdn/content/Video.h
+$O/src/cdn/content/VideoSet.o: src/cdn/content/VideoSet.cc \
+	src/cdn/content/VideoSet.h \
+	src/cdn/content/Segment.h \
+	src/cdn/content/Video.h
+$O/src/cdn/content/File.o: src/cdn/content/File.cc \
+	src/cdn/content/File.h
 $O/src/cdn/node/Processador.o: src/cdn/node/Processador.cc \
 	src/cdn/node/Processador.h
 $O/src/cdn/node/Indexador.o: src/cdn/node/Indexador.cc \

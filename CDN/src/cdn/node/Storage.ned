@@ -6,9 +6,9 @@ import inet.applications.udpapp.UDPApp;
 simple Storage like UDPApp
 {
     parameters:
-        int serverPort; // port to listen on
-        volatile double waitInterval @unit("s"); // interval between sending video stream packets
-        volatile int packetLen @unit("B");
+        //int serverPort; // port to listen on
+        //volatile double waitInterval @unit("s"); // interval between sending video stream packets
+        //volatile int packetLen @unit("B");
         @display("i=block/app");
         
     gates:

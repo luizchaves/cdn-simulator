@@ -1,14 +1,14 @@
 version 2
-run General-0-20110226-11:43:22-2543
+run General-0-20110226-17:29:17-12734
 attr configname General
-attr datetime 20110226-11:43:22
+attr datetime 20110226-17:29:17
 attr experiment General
 attr inifile /home/lucachaves/program/omnetpp-4.1/samples/CDN/src/cdn/omnetpp.ini
 attr iterationvars ""
 attr iterationvars2 $repetition=0
 attr measurement ""
 attr network src.cdn.networks.Dynamic
-attr processid 2543
+attr processid 12734
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -23,12 +23,6 @@ scalar Dynamic.router0.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.router0.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router0.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router0.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router0.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router0.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router0.ppp[3].queue 	"packets received by queue" 	0
-scalar Dynamic.router0.ppp[3].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router0.ppp[4].queue 	"packets received by queue" 	0
-scalar Dynamic.router0.ppp[4].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router1.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router1.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router1.networkLayer.arp 	"ARP resolutions" 	0
@@ -37,6 +31,8 @@ scalar Dynamic.router1.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.router1.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router1.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router1.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router1.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.router1.ppp[2].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router2.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router2.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router2.networkLayer.arp 	"ARP resolutions" 	0
@@ -45,6 +41,10 @@ scalar Dynamic.router2.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.router2.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router2.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router2.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router2.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.router2.ppp[2].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router2.ppp[3].queue 	"packets received by queue" 	0
+scalar Dynamic.router2.ppp[3].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router3.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router3.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router3.networkLayer.arp 	"ARP resolutions" 	0
@@ -53,6 +53,8 @@ scalar Dynamic.router3.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.router3.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router3.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router3.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router3.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.router3.ppp[2].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router4.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router4.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router4.networkLayer.arp 	"ARP resolutions" 	0
@@ -61,8 +63,6 @@ scalar Dynamic.router4.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.router4.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router4.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router4.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router4.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router4.ppp[2].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router5.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router5.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router5.networkLayer.arp 	"ARP resolutions" 	0
@@ -73,6 +73,8 @@ scalar Dynamic.router5.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router5.ppp[1].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router5.ppp[2].queue 	"packets received by queue" 	0
 scalar Dynamic.router5.ppp[2].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router5.ppp[3].queue 	"packets received by queue" 	0
+scalar Dynamic.router5.ppp[3].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router6.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router6.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router6.networkLayer.arp 	"ARP resolutions" 	0
@@ -83,20 +85,6 @@ scalar Dynamic.router6.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router6.ppp[1].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router6.ppp[2].queue 	"packets received by queue" 	0
 scalar Dynamic.router6.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router6.ppp[3].queue 	"packets received by queue" 	0
-scalar Dynamic.router6.ppp[3].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router6.ppp[4].queue 	"packets received by queue" 	0
-scalar Dynamic.router6.ppp[4].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router6.ppp[5].queue 	"packets received by queue" 	0
-scalar Dynamic.router6.ppp[5].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router6.ppp[6].queue 	"packets received by queue" 	0
-scalar Dynamic.router6.ppp[6].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router6.ppp[7].queue 	"packets received by queue" 	0
-scalar Dynamic.router6.ppp[7].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router6.ppp[8].queue 	"packets received by queue" 	0
-scalar Dynamic.router6.ppp[8].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router6.ppp[9].queue 	"packets received by queue" 	0
-scalar Dynamic.router6.ppp[9].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router7.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router7.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router7.networkLayer.arp 	"ARP resolutions" 	0
@@ -105,6 +93,8 @@ scalar Dynamic.router7.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.router7.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router7.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router7.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router7.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.router7.ppp[2].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router8.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router8.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router8.networkLayer.arp 	"ARP resolutions" 	0
@@ -113,6 +103,10 @@ scalar Dynamic.router8.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.router8.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router8.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router8.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router8.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.router8.ppp[2].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router8.ppp[3].queue 	"packets received by queue" 	0
+scalar Dynamic.router8.ppp[3].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router9.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router9.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router9.networkLayer.arp 	"ARP resolutions" 	0
@@ -121,6 +115,12 @@ scalar Dynamic.router9.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.router9.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router9.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router9.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router9.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.router9.ppp[2].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router9.ppp[3].queue 	"packets received by queue" 	0
+scalar Dynamic.router9.ppp[3].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router9.ppp[4].queue 	"packets received by queue" 	0
+scalar Dynamic.router9.ppp[4].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router10.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router10.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router10.networkLayer.arp 	"ARP resolutions" 	0
@@ -129,6 +129,8 @@ scalar Dynamic.router10.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.router10.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router10.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router10.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router10.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.router10.ppp[2].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router11.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router11.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router11.networkLayer.arp 	"ARP resolutions" 	0
@@ -147,8 +149,6 @@ scalar Dynamic.router12.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router12.ppp[1].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router12.ppp[2].queue 	"packets received by queue" 	0
 scalar Dynamic.router12.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router12.ppp[3].queue 	"packets received by queue" 	0
-scalar Dynamic.router12.ppp[3].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router13.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router13.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router13.networkLayer.arp 	"ARP resolutions" 	0
@@ -165,6 +165,10 @@ scalar Dynamic.router14.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.router14.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router14.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router14.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router14.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.router14.ppp[2].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router14.ppp[3].queue 	"packets received by queue" 	0
+scalar Dynamic.router14.ppp[3].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router15.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router15.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router15.networkLayer.arp 	"ARP resolutions" 	0
@@ -189,6 +193,8 @@ scalar Dynamic.router16.ppp[3].queue 	"packets received by queue" 	0
 scalar Dynamic.router16.ppp[3].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router16.ppp[4].queue 	"packets received by queue" 	0
 scalar Dynamic.router16.ppp[4].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router16.ppp[5].queue 	"packets received by queue" 	0
+scalar Dynamic.router16.ppp[5].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router17.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router17.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router17.networkLayer.arp 	"ARP resolutions" 	0
@@ -197,6 +203,10 @@ scalar Dynamic.router17.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.router17.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router17.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router17.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router17.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.router17.ppp[2].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router17.ppp[3].queue 	"packets received by queue" 	0
+scalar Dynamic.router17.ppp[3].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router18.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router18.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router18.networkLayer.arp 	"ARP resolutions" 	0
@@ -213,6 +223,8 @@ scalar Dynamic.router19.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.router19.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router19.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router19.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router19.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.router19.ppp[2].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router20.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router20.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router20.networkLayer.arp 	"ARP resolutions" 	0
@@ -221,22 +233,6 @@ scalar Dynamic.router20.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.router20.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router20.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router20.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router20.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router20.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router20.ppp[3].queue 	"packets received by queue" 	0
-scalar Dynamic.router20.ppp[3].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router20.ppp[4].queue 	"packets received by queue" 	0
-scalar Dynamic.router20.ppp[4].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router20.ppp[5].queue 	"packets received by queue" 	0
-scalar Dynamic.router20.ppp[5].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router20.ppp[6].queue 	"packets received by queue" 	0
-scalar Dynamic.router20.ppp[6].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router20.ppp[7].queue 	"packets received by queue" 	0
-scalar Dynamic.router20.ppp[7].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router20.ppp[8].queue 	"packets received by queue" 	0
-scalar Dynamic.router20.ppp[8].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router20.ppp[9].queue 	"packets received by queue" 	0
-scalar Dynamic.router20.ppp[9].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router21.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router21.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router21.networkLayer.arp 	"ARP resolutions" 	0
@@ -245,6 +241,8 @@ scalar Dynamic.router21.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.router21.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router21.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router21.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router21.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.router21.ppp[2].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router22.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router22.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router22.networkLayer.arp 	"ARP resolutions" 	0
@@ -253,8 +251,6 @@ scalar Dynamic.router22.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.router22.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router22.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router22.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router22.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router22.ppp[2].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router23.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router23.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router23.networkLayer.arp 	"ARP resolutions" 	0
@@ -275,14 +271,6 @@ scalar Dynamic.router24.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router24.ppp[1].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router24.ppp[2].queue 	"packets received by queue" 	0
 scalar Dynamic.router24.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router24.ppp[3].queue 	"packets received by queue" 	0
-scalar Dynamic.router24.ppp[3].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router24.ppp[4].queue 	"packets received by queue" 	0
-scalar Dynamic.router24.ppp[4].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router24.ppp[5].queue 	"packets received by queue" 	0
-scalar Dynamic.router24.ppp[5].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router24.ppp[6].queue 	"packets received by queue" 	0
-scalar Dynamic.router24.ppp[6].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router25.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router25.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router25.networkLayer.arp 	"ARP resolutions" 	0
@@ -291,6 +279,8 @@ scalar Dynamic.router25.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.router25.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router25.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router25.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router25.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.router25.ppp[2].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router26.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.router26.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.router26.networkLayer.arp 	"ARP resolutions" 	0
@@ -299,6 +289,8 @@ scalar Dynamic.router26.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.router26.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.router26.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.router26.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.router26.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.router26.ppp[2].queue 	"packets dropped by queue" 	0
 scalar Dynamic.storage27.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.storage27.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.storage27.networkLayer.arp 	"ARP resolutions" 	0
