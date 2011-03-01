@@ -2,26 +2,31 @@
 #define VIDEOSET_H_
 
 #include <map>
+#include <vector>
 #include <Video.h>
 
 using namespace std;
 
 class VideoSet {
 public:
-	VideoSet(int id, int cdn);
+	VideoSet(int id, int cdn, const char *cdnName);
 	virtual ~VideoSet();
 	int getId();
-	int getCDN();
+	int getCDNId();
+	const char *getCDNName();
 	void addVideo(Video *video);
-	void eraseVideo(Video *video);
+	void addVideo(map<int, Video*> videoMap);
+	map<int, Video*> getVideoMap();
+	Video *getVideo(int id);
 	int getSizeVideo();
-	int getSizeSegment();
+	int getNumberSegment();
+	static const double SIZE_SEG;
 
 private:
 	int _id;
 	int _cdnId;
-	const var *cdnName;
-	map<int, Video*> videoMap;
+	const char *_cdnName;
+	map<int, Video*> _videoMap;
 };
 
 #endif /* VIDEOSET_H_ */

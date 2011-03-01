@@ -17,6 +17,9 @@
 #define __CDN_REFLETOR_H_
 
 #include <omnetpp.h>
+#include <map>
+#include <vector>
+#include <VideoSet.h>
 
 /**
  * TODO - Generated class
@@ -26,6 +29,7 @@ class Refletor : public cSimpleModule
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
+
 };
 
 #endif

@@ -1,9 +1,11 @@
 #include "VideoSet.h"
 
-VideoSet::VideoSet(int id, int cdnId, const var *cdnName) {
+const double VideoSet::SIZE_SEG = 1000000.0;
+
+VideoSet::VideoSet(int id, int cdnId, const char *cdnName) {
 	this->_id = id;
-	this->_cdn = cdn;
-	this->_cdnNmae = cdnName;
+	this->_cdnId = cdnId;
+	this->_cdnName = cdnName;
 }
 
 VideoSet::~VideoSet() {
@@ -13,22 +15,43 @@ int VideoSet::getId() {
 	return this->_id;
 }
 
-int VideoSet::getCDN() {
-	return this->_cdn;
+int VideoSet::getCDNId() {
+	return this->_cdnId;
+}
+
+const char *VideoSet::getCDNName() {
+	return this->_cdnName;
 }
 
 void VideoSet::addVideo(Video *video) {
-
+	this->_videoMap.insert(make_pair(video->getId(), video));
 }
 
-void VideoSet::eraseVideo(Video *video) {
+map<int, Video*> VideoSet::getVideoMap(){
+	return this->_videoMap;
+}
 
+void VideoSet::addVideo(map<int, Video*> videoMap) {
+	this->_videoMap.insert(videoMap.begin(), videoMap.end());
+}
+
+Video *VideoSet::getVideo(int id) {
+	map<int, Video*>::iterator vidPos= this->_videoMap.find(id);
+	if(vidPos == this->_videoMap.end())
+		return NULL;
+	else
+		return (*vidPos).second;
 }
 
 int VideoSet::getSizeVideo() {
-	return 0;
+	return this->_videoMap.size();
 }
 
-int VideoSet::getSizeSegment() {
-	return 0;
+int VideoSet::getNumberSegment() {
+	int numberSegment = 0;
+	for (map<int, Video*>::iterator it = this->_videoMap.begin() ; it != this->_videoMap.end(); it++ ){
+		Video *video = (*it).second;
+		numberSegment += video->getNumberSegment();
+	}
+	return numberSegment;
 }

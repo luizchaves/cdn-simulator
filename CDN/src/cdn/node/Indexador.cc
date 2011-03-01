@@ -19,10 +19,44 @@ Define_Module(Indexador);
 
 void Indexador::initialize()
 {
-    // TODO - Generated method body
+	for (cModule::SubmoduleIterator iter(getParentModule()->getParentModule()); !iter.end(); iter++){
+		if (strcmp(iter()->getModuleType()->getName(), "CDNNode") == 0){
+			if(!strcmp(((cModule*)iter())->par("type"), "s")){
+				this->storage.push_back(((cModule*)iter()));
+				vector<VideoSet*> videoSetVector = ((Storage*)((cModule*)iter())->getSubmodule("udpApp", 0))->getVideoSet();
+				for (vector<VideoSet*>::iterator it = videoSetVector.begin(); it < videoSetVector.end(); it++ ) {
+					if(cdnStorageContentMap[(*it)->getCDNId()] == NULL){
+						this->cdnStorageContentMap.insert(make_pair((*it)->getCDNId(), (*it)));
+					} else {
+						this->cdnStorageContentMap[(*it)->getCDNId()]->addVideo((*it)->getVideoMap());
+					}
+				}
+			} else
+				if(!strcmp(((cModule*)iter())->par("type"), "r")){
+					this->refletor.push_back(((cModule*)iter()));
+					//cdnCacheContentMap
+				} else
+					if(!strcmp(((cModule*)iter())->par("type"), "c")){
+						this->client.push_back(((cModule*)iter()));
+					}
+		}
+	}
+	//for ( map<int, VideoSet*>::iterator it=this->cdnStorageContentMap.begin() ; it != this->cdnStorageContentMap.end(); it++ )
+	    //ev << "-----------------" << (*it).first << " => " << (*it).second << endl;
+
+	//closestStorageToRefletor
+	//closestRefletorToClient
 }
 
 void Indexador::handleMessage(cMessage *msg)
 {
     // TODO - Generated method body
+}
+
+cModule *Indexador::getContentInStorage(Video *video) {
+	return NULL;
+}
+
+cModule *Indexador::getContentInRefletor(Segment *segment) {
+	return NULL;
 }

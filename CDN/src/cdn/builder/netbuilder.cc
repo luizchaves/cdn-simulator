@@ -108,29 +108,33 @@ std::map<long ,cModule*> NetBuilder::generateModuleCDNDyn(cModule *parent)
             if(var < numberRouter + numberStorage){
                 mod = modtype->create("storage", parent);
                 mod->setName(std::string("storage").append(number.str()).c_str());
-                mod->par("numUdpApps").setLongValue(1000);
+                mod->par("numUdpApps").setLongValue(100);
                 mod->par("udpAppType").setStringValue("Storage");
+                mod->par("type").setStringValue("s");
                 displayString = "i=device/server";
             }else
                 if(var < numberRouter + numberStorage + numberRefletor){
                     mod = modtype->create("refletor", parent);
                     mod->setName(std::string("refletor").append(number.str()).c_str());
-                    mod->par("numUdpApps").setLongValue(1000);
+                    mod->par("numUdpApps").setLongValue(100);
                     mod->par("udpAppType").setStringValue("Refletor");
+                    mod->par("type").setStringValue("r");
                     displayString = "i=abstract/db";
                 }else
                     if(var < numberRouter + numberStorage + numberRefletor + numberIndexador){
                         mod = modtype->create("indexador", parent);
                         mod->setName(std::string("indexador").append(number.str()).c_str());
-                        mod->par("numUdpApps").setLongValue(1000);
+                        mod->par("numUdpApps").setLongValue(100);
                         mod->par("udpAppType").setStringValue("Indexador");
+                        mod->par("type").setStringValue("i");
                         displayString = "i=block/network2";
                     }else
                         if(var < numberRouter + numberStorage + numberRefletor + numberIndexador + numberProcessador){
                             mod = modtype->create("processador", parent);
                             mod->setName(std::string("processador").append(number.str()).c_str());
-                            mod->par("numUdpApps").setLongValue(1000);
+                            mod->par("numUdpApps").setLongValue(100);
                             mod->par("udpAppType").setStringValue("Processador");
+                            mod->par("type").setStringValue("p");
                             displayString = "i=device/cpu";
                         }
 
@@ -278,8 +282,9 @@ void NetBuilder::connectClient(cModule *parent){
 
 		cModule *mod = modtype->create("client", parent);
 		mod->setName(std::string("client").append(number.str()).c_str());
-        mod->par("numUdpApps").setLongValue(1000);
+        mod->par("numUdpApps").setLongValue(100);
         mod->par("udpAppType").setStringValue("Client");
+        mod->par("type").setStringValue("c");
 
 		nodeid2mod[var] = mod;
 		// read params from the ini file, etc

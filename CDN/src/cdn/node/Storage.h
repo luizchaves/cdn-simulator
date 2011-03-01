@@ -17,15 +17,23 @@
 #define __CDN_STORAGE_H_
 
 #include <omnetpp.h>
+#include <vector>
+#include <VideoSet.h>
+#include <Video.h>
+#include <Segment.h>
 
 /**
  * TODO - Generated class
  */
 class Storage : public cSimpleModule
 {
+  public:
+	vector<VideoSet*> getVideoSet();
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
+  private:
+    vector<VideoSet*> _videoSet;
 };
 
 #endif

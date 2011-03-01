@@ -14,14 +14,14 @@ public:
 	int getId();
 	double getBitrate();
 	void addSegment(Segment *segment);
-	void eraseSegment(Segment *segment);
-	int getSizeSegment();
+	Segment *getSegment(int id);
+	int getNumberSegment();
 
 private:
 	int _id;
 	double _size;
 	double _bitrate;
-	map<int, Segment*> segmentMap;
+	map<int, Segment*> _segmentMap;
 };
 
 #endif /* VIDEO_H_ */

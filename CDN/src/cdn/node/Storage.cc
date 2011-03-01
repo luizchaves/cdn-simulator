@@ -14,15 +14,32 @@
 // 
 
 #include "Storage.h"
+#include <time.h>
 
 Define_Module(Storage);
 
 void Storage::initialize()
 {
-    // TODO - Generated method body
+	int numberVideo = uniform(0, 100, (int) dblrand()*1000);
+	//TODO criar várias videoset
+	VideoSet videoSet(time(NULL), 1, "ITVp");
+	for (int i = 0; i < numberVideo; i++) {
+		//TODO pegar bernauli e bitarte para saber o tamanho do video e depois o num de seg
+		int numberSegment = uniform(0, 100, (int) dblrand()*1000);
+		Video video(time(NULL), uniform(0, 100, (int) dblrand()*1000), 125);
+			for (int j = 0; j < numberSegment; j++){
+				Segment segment(time(NULL), VideoSet::SIZE_SEG, j*VideoSet::SIZE_SEG);
+				video.addSegment(&segment);
+			}
+		videoSet.addVideo(&video);
+	}
+	this->_videoSet.push_back(&videoSet);
 }
 
 void Storage::handleMessage(cMessage *msg)
 {
-    // TODO - Generated method body
+}
+
+vector<VideoSet*> Storage::getVideoSet() {
+	return this->_videoSet;
 }

@@ -141,16 +141,25 @@ $O/src/cdn/content/VideoSet.o: src/cdn/content/VideoSet.cc \
 	src/cdn/content/VideoSet.h \
 	src/cdn/content/Segment.h \
 	src/cdn/content/Video.h
-$O/src/cdn/content/File.o: src/cdn/content/File.cc \
-	src/cdn/content/File.h
 $O/src/cdn/node/Processador.o: src/cdn/node/Processador.cc \
 	src/cdn/node/Processador.h
 $O/src/cdn/node/Indexador.o: src/cdn/node/Indexador.cc \
-	src/cdn/node/Indexador.h
+	src/cdn/content/VideoSet.h \
+	src/cdn/node/Indexador.h \
+	src/cdn/content/Segment.h \
+	src/cdn/content/Video.h \
+	src/cdn/content/Cache.h \
+	src/cdn/node/Storage.h
 $O/src/cdn/node/Storage.o: src/cdn/node/Storage.cc \
+	src/cdn/content/VideoSet.h \
+	src/cdn/content/Segment.h \
+	src/cdn/content/Video.h \
 	src/cdn/node/Storage.h
 $O/src/cdn/node/Refletor.o: src/cdn/node/Refletor.cc \
-	src/cdn/node/Refletor.h
+	src/cdn/content/VideoSet.h \
+	src/cdn/content/Segment.h \
+	src/cdn/node/Refletor.h \
+	src/cdn/content/Video.h
 $O/src/cdn/node/Client.o: src/cdn/node/Client.cc \
 	src/cdn/node/Client.h
 
