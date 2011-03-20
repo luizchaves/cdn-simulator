@@ -19,16 +19,21 @@
 #include <omnetpp.h>
 #include <map>
 #include <vector>
-#include <VideoSet.h>
+#include <Cache.h>
+#include <LruCache.h>
 
 /**
  * TODO - Generated class
  */
 class Refletor : public cSimpleModule
 {
+  public:
+	vector<Cache*> getCache(int cdnId);
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
+  private:
+    vector<Cache*> _cache;
 
 };
 

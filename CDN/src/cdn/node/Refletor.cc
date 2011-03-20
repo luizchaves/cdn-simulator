@@ -19,10 +19,15 @@ Define_Module(Refletor);
 
 void Refletor::initialize()
 {
-    // TODO - Generated method body
+	LruCache cache(time(NULL), 1, "ITVp", 1000000000, 0);
+	this->_cache.push_back(&cache);
 }
 
 void Refletor::handleMessage(cMessage *msg)
 {
     // TODO - Generated method body
+}
+
+vector<Cache*> Refletor::getCache(int cdnId){
+	return this->_cache;
 }

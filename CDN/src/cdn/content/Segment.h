@@ -8,6 +8,7 @@ public:
 	double getStart();
 	double getSize();
 	int getId();
+	Segment* clone();
 private:
 	int _id;
 	double _size;

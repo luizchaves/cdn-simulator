@@ -20,3 +20,9 @@ double Segment::getSize() {
 int Segment::getId() {
 	return this->_id;
 }
+
+Segment* Segment::clone(){
+	Segment* cloned = this;
+
+	return cloned;
+}

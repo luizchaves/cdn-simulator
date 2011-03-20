@@ -243,6 +243,10 @@ void NetBuilder::buildNetwork(cModule *parent)
 {
     nodeid2mod = generateModuleCDNDyn(parent);
     generateConnectionCDNRandom(nodeid2mod);
+    //generateConnectionCDNStatic(nodeid2mod);
+
+    // Connect client
+	connectClient(parent);
 
     std::map<long,cModule *>::iterator it;
 
@@ -264,8 +268,7 @@ void NetBuilder::buildNetwork(cModule *parent)
         }
     }
 
-    // Connect client
-    connectClient(parent);
+
 }
 
 

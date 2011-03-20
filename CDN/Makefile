@@ -21,6 +21,7 @@ INCLUDE_PATH = \
     -Isrc/cdn/builder \
     -Isrc/cdn/builder/netBuilder \
     -Isrc/cdn/content \
+    -Isrc/cdn/execption \
     -Isrc/cdn/networks \
     -Isrc/cdn/node \
     -Isrc/cdn/results
@@ -41,7 +42,9 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 OBJS = \
     $O/src/cdn/builder/netbuilder.o \
     $O/src/cdn/content/Video.o \
+    $O/src/cdn/content/Cache.o \
     $O/src/cdn/content/VideoSet.o \
+    $O/src/cdn/content/LruCache.o \
     $O/src/cdn/content/Segment.o \
     $O/src/cdn/node/Storage.o \
     $O/src/cdn/node/Processador.o \
@@ -120,6 +123,7 @@ clean:
 	-rm -f src/cdn/builder/*_m.cc src/cdn/builder/*_m.h
 	-rm -f src/cdn/builder/netBuilder/*_m.cc src/cdn/builder/netBuilder/*_m.h
 	-rm -f src/cdn/content/*_m.cc src/cdn/content/*_m.h
+	-rm -f src/cdn/execption/*_m.cc src/cdn/execption/*_m.h
 	-rm -f src/cdn/networks/*_m.cc src/cdn/networks/*_m.h
 	-rm -f src/cdn/node/*_m.cc src/cdn/node/*_m.h
 	-rm -f src/cdn/results/*_m.cc src/cdn/results/*_m.h
@@ -128,7 +132,7 @@ cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc src/*.cc src/cdn/*.cc src/cdn/builder/*.cc src/cdn/builder/netBuilder/*.cc src/cdn/content/*.cc src/cdn/networks/*.cc src/cdn/node/*.cc src/cdn/results/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc src/*.cc src/cdn/*.cc src/cdn/builder/*.cc src/cdn/builder/netBuilder/*.cc src/cdn/content/*.cc src/cdn/execption/*.cc src/cdn/networks/*.cc src/cdn/node/*.cc src/cdn/results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/src/cdn/builder/netbuilder.o: src/cdn/builder/netbuilder.cc
@@ -137,10 +141,20 @@ $O/src/cdn/content/Segment.o: src/cdn/content/Segment.cc \
 $O/src/cdn/content/Video.o: src/cdn/content/Video.cc \
 	src/cdn/content/Segment.h \
 	src/cdn/content/Video.h
+$O/src/cdn/content/Cache.o: src/cdn/content/Cache.cc \
+	src/cdn/content/Segment.h \
+	src/cdn/content/Video.h \
+	src/cdn/content/Cache.h
 $O/src/cdn/content/VideoSet.o: src/cdn/content/VideoSet.cc \
 	src/cdn/content/VideoSet.h \
 	src/cdn/content/Segment.h \
 	src/cdn/content/Video.h
+$O/src/cdn/content/LruCache.o: src/cdn/content/LruCache.cc \
+	src/cdn/content/Segment.h \
+	src/cdn/content/LruCache.h \
+	src/cdn/execption/Exceptions.h \
+	src/cdn/content/Video.h \
+	src/cdn/content/Cache.h
 $O/src/cdn/node/Processador.o: src/cdn/node/Processador.cc \
 	src/cdn/node/Processador.h
 $O/src/cdn/node/Indexador.o: src/cdn/node/Indexador.cc \
@@ -148,7 +162,6 @@ $O/src/cdn/node/Indexador.o: src/cdn/node/Indexador.cc \
 	src/cdn/node/Indexador.h \
 	src/cdn/content/Segment.h \
 	src/cdn/content/Video.h \
-	src/cdn/content/Cache.h \
 	src/cdn/node/Storage.h
 $O/src/cdn/node/Storage.o: src/cdn/node/Storage.cc \
 	src/cdn/content/VideoSet.h \
@@ -156,10 +169,11 @@ $O/src/cdn/node/Storage.o: src/cdn/node/Storage.cc \
 	src/cdn/content/Video.h \
 	src/cdn/node/Storage.h
 $O/src/cdn/node/Refletor.o: src/cdn/node/Refletor.cc \
-	src/cdn/content/VideoSet.h \
 	src/cdn/content/Segment.h \
+	src/cdn/content/LruCache.h \
 	src/cdn/node/Refletor.h \
-	src/cdn/content/Video.h
+	src/cdn/content/Video.h \
+	src/cdn/content/Cache.h
 $O/src/cdn/node/Client.o: src/cdn/node/Client.cc \
 	src/cdn/node/Client.h
 
