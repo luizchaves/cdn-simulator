@@ -11,15 +11,16 @@ package src.cdn.networks;
 
 import inet.nodes.inet.Router;
 import src.cdn.node.CDNNode;
-import src.cdn.builder.NetBuilder;
+import src.cdn.builder.NetBuilderCDN;
 import ned.DatarateChannel;
 
 
 network Dynamic
 {
     submodules:
-        builder: NetBuilder {
-            connectionsFile = "/home/lucachaves/program/omnetpp-4.1/samples/CDN/src/cdn/networks/connections.txt";
+        builder: NetBuilderCDN {
+            routersFile = "/home/lucachaves/program/omnetpp-4.1/samples/CDN/src/cdn/builder/routersRNP.txt";
+        	elementsFile = "/home/lucachaves/program/omnetpp-4.1/samples/CDN/src/cdn/builder/elements.txt";
         }
 }
 

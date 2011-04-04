@@ -41,19 +41,19 @@ void Indexador::initialize(int stage) {
 				} else if (!strcmp(((cModule*) iter())->par("type"), "r")) {
 					this->refletor.push_back(((cModule*) iter()));
 					//cdnCacheContentMap
-//					vector<CacheSet*> cacheSetVector =
-//							((Refletor*) ((cModule*) iter())->getSubmodule(
-//									"udpApp", 0))->getCacheSet();
-//					for (vector<CacheSet*>::iterator it =
-//							cacheSetVector.begin(); it < cacheSetVector.end(); it++) {
-//						if (cdnCacheContentMap[(*it)->getCDNId()] == NULL) {
-//							this->cdnCacheContentMap.insert(make_pair(
-//									(*it)->getCDNId(), (*it)));
-//						} else {
-//							this->cdnCacheContentMap[(*it)->getCDNId()]->addVideo(
-//									(*it)->getVideoMap());
-//						}
-//					}
+					vector<Cache*> cacheVector =
+							((Refletor*) ((cModule*) iter())->getSubmodule(
+									"udpApp", 0))->getCacheVector();
+					for (vector<Cache*>::iterator it =
+							cacheVector.begin(); it < cacheVector.end(); it++) {
+						if (cdnRefletorContentMap[(*it)->getCDNId()] == NULL) {
+							this->cdnRefletorContentMap.insert(make_pair(
+									(*it)->getCDNId(), (*it)));
+						} else {
+							this->cdnRefletorContentMap[(*it)->getCDNId()]->addSegment(
+									(*it)->getSegmentMap());
+						}
+					}
 				} else if (!strcmp(((cModule*) iter())->par("type"), "c")) {
 					this->client.push_back(((cModule*) iter()));
 				}

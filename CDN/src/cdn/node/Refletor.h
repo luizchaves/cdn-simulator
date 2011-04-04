@@ -28,7 +28,8 @@
 class Refletor : public cSimpleModule
 {
   public:
-	vector<Cache*> getCache(int cdnId);
+	Cache* getCache(int cdnId);
+	vector<Cache*> getCacheVector();
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);

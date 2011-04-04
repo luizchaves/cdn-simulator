@@ -1,481 +1,257 @@
 version 2
-run General-0-20110320-17:31:45-3911
+run General-0-20110404-16:32:52-7134
 attr configname General
-attr datetime 20110320-17:31:45
+attr datetime 20110404-16:32:52
 attr experiment General
 attr inifile /home/lucachaves/program/omnetpp-4.1/samples/CDN/src/cdn/omnetpp.ini
 attr iterationvars ""
 attr iterationvars2 $repetition=0
 attr measurement ""
 attr network src.cdn.networks.Dynamic
-attr processid 3911
+attr processid 7134
 attr repetition 0
 attr replication #0
 attr resultdir results
 attr runnumber 0
 attr seedset 0
 
-scalar Dynamic.router0.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router0.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router0.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router0.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router0.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router0.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router0.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router0.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router1.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router1.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router1.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router1.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router1.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router1.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router1.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router1.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router1.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router1.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router2.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router2.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router2.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router2.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router2.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router2.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router2.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router2.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router2.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router2.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router2.ppp[3].queue 	"packets received by queue" 	0
-scalar Dynamic.router2.ppp[3].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router3.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router3.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router3.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router3.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router3.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router3.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router3.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router3.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router3.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router3.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router4.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router4.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router4.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router4.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router4.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router4.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router4.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router4.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router5.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router5.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router5.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router5.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router5.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router5.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router5.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router5.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router5.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router5.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router5.ppp[3].queue 	"packets received by queue" 	0
-scalar Dynamic.router5.ppp[3].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router6.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router6.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router6.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router6.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router6.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router6.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router6.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router6.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router6.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router6.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router7.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router7.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router7.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router7.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router7.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router7.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router7.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router7.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router7.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router7.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router8.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router8.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router8.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router8.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router8.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router8.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router8.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router8.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router8.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router8.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router8.ppp[3].queue 	"packets received by queue" 	0
-scalar Dynamic.router8.ppp[3].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router9.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router9.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router9.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router9.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router9.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router9.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router9.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router9.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router9.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router9.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router9.ppp[3].queue 	"packets received by queue" 	0
-scalar Dynamic.router9.ppp[3].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router9.ppp[4].queue 	"packets received by queue" 	0
-scalar Dynamic.router9.ppp[4].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router10.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router10.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router10.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router10.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router10.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router10.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router10.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router10.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router10.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router10.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router11.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router11.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router11.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router11.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router11.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router11.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router11.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router11.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router11.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router11.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router12.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router12.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router12.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router12.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router12.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router12.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router12.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router12.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router12.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router12.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router13.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router13.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router13.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router13.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router13.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router13.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router13.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router13.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router14.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router14.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router14.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router14.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router14.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router14.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router14.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router14.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router14.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router14.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router14.ppp[3].queue 	"packets received by queue" 	0
-scalar Dynamic.router14.ppp[3].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router15.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router15.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router15.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router15.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router15.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router15.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router15.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router15.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router15.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router15.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router16.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router16.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router16.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router16.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router16.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router16.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router16.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router16.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router16.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router16.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router16.ppp[3].queue 	"packets received by queue" 	0
-scalar Dynamic.router16.ppp[3].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router16.ppp[4].queue 	"packets received by queue" 	0
-scalar Dynamic.router16.ppp[4].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router16.ppp[5].queue 	"packets received by queue" 	0
-scalar Dynamic.router16.ppp[5].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router17.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router17.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router17.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router17.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router17.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router17.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router17.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router17.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router17.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router17.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router17.ppp[3].queue 	"packets received by queue" 	0
-scalar Dynamic.router17.ppp[3].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router18.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router18.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router18.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router18.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router18.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router18.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router18.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router18.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router19.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router19.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router19.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router19.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router19.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router19.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router19.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router19.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router19.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router19.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router20.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router20.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router20.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router20.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router20.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router20.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router20.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router20.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router21.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router21.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router21.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router21.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router21.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router21.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router21.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router21.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router21.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router21.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router22.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router22.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router22.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router22.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router22.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router22.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router22.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router22.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router23.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router23.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router23.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router23.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router23.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router23.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router23.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router23.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router23.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router23.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router24.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router24.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router24.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router24.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router24.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router24.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router24.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router24.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router24.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router24.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router25.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router25.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router25.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router25.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router25.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router25.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router25.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router25.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router25.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router25.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router26.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.router26.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.router26.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.router26.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.router26.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.router26.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router26.ppp[1].queue 	"packets received by queue" 	0
-scalar Dynamic.router26.ppp[1].queue 	"packets dropped by queue" 	0
-scalar Dynamic.router26.ppp[2].queue 	"packets received by queue" 	0
-scalar Dynamic.router26.ppp[2].queue 	"packets dropped by queue" 	0
-scalar Dynamic.storage27.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.storage27.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.storage27.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.storage27.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.storage27.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.storage27.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor28.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor28.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor28.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor28.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor28.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor28.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor29.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor29.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor29.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor29.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor29.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor29.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor30.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor30.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor30.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor30.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor30.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor30.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor31.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor31.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor31.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor31.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor31.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor31.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor32.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor32.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor32.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor32.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor32.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor32.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor33.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor33.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor33.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor33.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor33.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor33.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor34.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor34.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor34.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor34.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor34.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor34.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor35.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor35.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor35.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor35.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor35.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor35.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor36.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor36.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor36.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor36.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor36.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor36.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor37.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor37.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor37.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor37.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor37.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor37.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor38.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor38.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor38.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor38.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor38.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor38.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor39.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor39.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor39.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor39.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor39.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor39.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor40.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor40.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor40.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor40.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor40.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor40.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor41.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor41.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor41.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor41.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor41.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor41.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor42.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor42.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor42.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor42.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor42.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor42.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor43.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor43.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor43.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor43.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor43.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor43.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor44.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor44.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor44.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor44.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor44.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor44.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor45.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor45.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor45.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor45.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor45.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor45.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor46.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor46.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor46.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor46.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor46.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor46.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor47.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor47.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor47.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor47.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor47.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor47.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor48.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor48.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor48.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor48.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor48.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor48.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor49.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor49.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor49.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor49.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor49.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor49.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor50.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor50.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor50.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor50.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor50.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor50.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor51.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor51.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor51.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor51.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor51.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor51.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor52.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor52.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor52.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor52.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor52.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor52.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor53.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor53.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor53.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor53.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor53.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor53.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.refletor54.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.refletor54.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.refletor54.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.refletor54.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.refletor54.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.refletor54.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.indexador55.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.indexador55.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.indexador55.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.indexador55.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.indexador55.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.indexador55.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.processador56.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.processador56.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.processador56.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.processador56.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.processador56.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.processador56.ppp[0].queue 	"packets dropped by queue" 	0
-scalar Dynamic.client57.networkLayer.arp 	"ARP requests sent" 	0
-scalar Dynamic.client57.networkLayer.arp 	"ARP replies sent" 	0
-scalar Dynamic.client57.networkLayer.arp 	"ARP resolutions" 	0
-scalar Dynamic.client57.networkLayer.arp 	"failed ARP resolutions" 	0
-scalar Dynamic.client57.ppp[0].queue 	"packets received by queue" 	0
-scalar Dynamic.client57.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.AC.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.AC.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.AC.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.AC.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.AC.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.AC.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.AL.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.AL.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.AL.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.AL.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.AL.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.AL.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.AL.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.AL.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.AL.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.AL.ppp[2].queue 	"packets dropped by queue" 	0
+scalar Dynamic.AP.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.AP.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.AP.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.AP.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.AP.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.AP.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.AM.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.AM.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.AM.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.AM.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.AM.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.AM.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.BA.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.BA.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.BA.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.BA.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.BA.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.BA.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.BA.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.BA.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.BA.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.BA.ppp[2].queue 	"packets dropped by queue" 	0
+scalar Dynamic.CE.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.CE.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.CE.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.CE.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.CE.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.CE.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.CE.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.CE.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.CE.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.CE.ppp[2].queue 	"packets dropped by queue" 	0
+scalar Dynamic.CE.ppp[3].queue 	"packets received by queue" 	0
+scalar Dynamic.CE.ppp[3].queue 	"packets dropped by queue" 	0
+scalar Dynamic.DF.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.DF.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.DF.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.DF.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.DF.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.DF.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.DF.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.DF.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.DF.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.DF.ppp[2].queue 	"packets dropped by queue" 	0
+scalar Dynamic.DF.ppp[3].queue 	"packets received by queue" 	0
+scalar Dynamic.DF.ppp[3].queue 	"packets dropped by queue" 	0
+scalar Dynamic.DF.ppp[4].queue 	"packets received by queue" 	0
+scalar Dynamic.DF.ppp[4].queue 	"packets dropped by queue" 	0
+scalar Dynamic.DF.ppp[5].queue 	"packets received by queue" 	0
+scalar Dynamic.DF.ppp[5].queue 	"packets dropped by queue" 	0
+scalar Dynamic.DF.ppp[6].queue 	"packets received by queue" 	0
+scalar Dynamic.DF.ppp[6].queue 	"packets dropped by queue" 	0
+scalar Dynamic.DF.ppp[7].queue 	"packets received by queue" 	0
+scalar Dynamic.DF.ppp[7].queue 	"packets dropped by queue" 	0
+scalar Dynamic.ES.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.ES.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.ES.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.ES.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.ES.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.ES.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.GO.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.GO.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.GO.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.GO.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.GO.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.GO.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.GO.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.GO.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.MA.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.MA.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.MA.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.MA.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.MA.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.MA.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.MA.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.MA.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.MA.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.MA.ppp[2].queue 	"packets dropped by queue" 	0
+scalar Dynamic.MA.ppp[3].queue 	"packets received by queue" 	0
+scalar Dynamic.MA.ppp[3].queue 	"packets dropped by queue" 	0
+scalar Dynamic.MT.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.MT.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.MT.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.MT.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.MT.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.MT.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.MS.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.MS.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.MS.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.MS.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.MS.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.MS.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.MG.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.MG.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.MG.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.MG.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.MG.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.MG.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.MG.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.MG.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.PA.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.PA.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.PA.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.PA.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.PA.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.PA.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.PA.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.PA.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.PB.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.PB.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.PB.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.PB.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.PB.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.PB.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.PB.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.PB.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.PR.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.PR.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.PR.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.PR.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.PR.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.PR.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.PR.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.PR.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.PE.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.PE.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.PE.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.PE.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.PE.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.PE.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.PE.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.PE.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.PE.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.PE.ppp[2].queue 	"packets dropped by queue" 	0
+scalar Dynamic.PE.ppp[3].queue 	"packets received by queue" 	0
+scalar Dynamic.PE.ppp[3].queue 	"packets dropped by queue" 	0
+scalar Dynamic.PI.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.PI.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.PI.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.PI.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.PI.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.PI.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.PI.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.PI.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.RJ.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.RJ.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.RJ.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.RJ.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.RJ.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.RJ.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.RJ.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.RJ.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.RJ.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.RJ.ppp[2].queue 	"packets dropped by queue" 	0
+scalar Dynamic.RJ.ppp[3].queue 	"packets received by queue" 	0
+scalar Dynamic.RJ.ppp[3].queue 	"packets dropped by queue" 	0
+scalar Dynamic.RJ.ppp[4].queue 	"packets received by queue" 	0
+scalar Dynamic.RJ.ppp[4].queue 	"packets dropped by queue" 	0
+scalar Dynamic.RN.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.RN.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.RN.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.RN.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.RN.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.RN.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.RN.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.RN.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.RS.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.RS.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.RS.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.RS.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.RS.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.RS.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.RS.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.RS.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.RS.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.RS.ppp[2].queue 	"packets dropped by queue" 	0
+scalar Dynamic.RO.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.RO.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.RO.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.RO.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.RO.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.RO.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.RR.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.RR.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.RR.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.RR.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.RR.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.RR.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.SC.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.SC.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.SC.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.SC.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.SC.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.SC.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.SC.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.SC.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.SP.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.SP.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.SP.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.SP.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.SP.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.SP.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.SP.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.SP.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.SP.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.SP.ppp[2].queue 	"packets dropped by queue" 	0
+scalar Dynamic.SP.ppp[3].queue 	"packets received by queue" 	0
+scalar Dynamic.SP.ppp[3].queue 	"packets dropped by queue" 	0
+scalar Dynamic.SP.ppp[4].queue 	"packets received by queue" 	0
+scalar Dynamic.SP.ppp[4].queue 	"packets dropped by queue" 	0
+scalar Dynamic.SE.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.SE.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.SE.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.SE.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.SE.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.SE.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.SE.ppp[1].queue 	"packets received by queue" 	0
+scalar Dynamic.SE.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.TO.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.TO.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.TO.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.TO.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.TO.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.TO.ppp[0].queue 	"packets dropped by queue" 	0

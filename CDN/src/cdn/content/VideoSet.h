@@ -25,7 +25,6 @@ public:
 private:
 	int _id;
 	int _cdnId;
-	const char *_cdnName;
 	map<int, Video*> _videoMap;
 };
 

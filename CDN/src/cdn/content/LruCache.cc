@@ -6,9 +6,10 @@
 #include "Exceptions.h"
 #include <omnetpp.h>
 
-LruCache::LruCache(int id, int cdnId, const char *cdnName, double totalCapacity, int shrink){
+LruCache::LruCache(int id, int cdnId, double totalCapacity, int shrink){
 	assert(totalCapacity >= 0);
 	this->_id = id;
+	this->_cdnId = cdnId;
 	this->_totalCapacity = totalCapacity;
 	this->_availableSpace = totalCapacity;
 	/*
@@ -106,6 +107,15 @@ bool LruCache::objectExists(int id){
 	assert(id>=0);
 	return (this->_cacheSegments.find(id) != this->_cacheSegments.end());
 }
+
+map<int, Segment*> LruCache::getSegmentMap(){
+	return this->_cacheSegments;
+}
+
+void LruCache::addSegment(map<int, Segment*> segmentMap) {
+	this->_cacheSegments.insert(segmentMap.begin(), segmentMap.end());
+}
+
 Segment* LruCache::getNonExistingObject(Segment* object){
 	assert(object);
 	if(this->objectExists(object->getId())){
@@ -157,6 +167,10 @@ Segment* LruCache::getObjectForced(int id){
 
 int LruCache::getId(){
 	return this->_id;
+}
+
+int LruCache::getCDNId(){
+	return this->_cdnId;
 }
 
 int LruCache::getNumberSegment(){

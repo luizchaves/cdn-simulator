@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for CDN
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -O out -L../inet/out/$(CONFIGNAME)/src -linet -KINET_PROJ=../inet
+#  opp_makemake -f --deep -O out -I../inet/src/networklayer/rsvp_te -I../inet/src/networklayer/common -I../inet/src/networklayer/icmpv6 -I../inet/src/transport/tcp -I../inet/src/networklayer/mpls -I../inet/src/networklayer/ted -I../inet/src/networklayer/contract -I../inet/src/util -I../inet/src/transport/contract -I../inet/src/linklayer/mfcore -I../inet/src/networklayer/ldp -I../inet/src/networklayer/ipv4 -I../inet/src/base -I../inet/src/util/headerserializers -I../inet/src/networklayer/ipv6 -I../inet/src/transport/sctp -I../inet/src/world -I../inet/src/applications/pingapp -I../inet/src/linklayer/contract -I../inet/src/networklayer/arp -I../inet/src/transport/udp -L../inet/out/$(CONFIGNAME)/src -linet -KINET_PROJ=../inet
 #
 
 # Name of target to be created (-o option)
@@ -15,6 +15,27 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(CMDENV_LIBS)
 
 # C++ include paths (with -I)
 INCLUDE_PATH = \
+    -I../inet/src/networklayer/rsvp_te \
+    -I../inet/src/networklayer/common \
+    -I../inet/src/networklayer/icmpv6 \
+    -I../inet/src/transport/tcp \
+    -I../inet/src/networklayer/mpls \
+    -I../inet/src/networklayer/ted \
+    -I../inet/src/networklayer/contract \
+    -I../inet/src/util \
+    -I../inet/src/transport/contract \
+    -I../inet/src/linklayer/mfcore \
+    -I../inet/src/networklayer/ldp \
+    -I../inet/src/networklayer/ipv4 \
+    -I../inet/src/base \
+    -I../inet/src/util/headerserializers \
+    -I../inet/src/networklayer/ipv6 \
+    -I../inet/src/transport/sctp \
+    -I../inet/src/world \
+    -I../inet/src/applications/pingapp \
+    -I../inet/src/linklayer/contract \
+    -I../inet/src/networklayer/arp \
+    -I../inet/src/transport/udp \
     -I. \
     -Isrc \
     -Isrc/cdn \
@@ -22,6 +43,7 @@ INCLUDE_PATH = \
     -Isrc/cdn/builder/netBuilder \
     -Isrc/cdn/content \
     -Isrc/cdn/execption \
+    -Isrc/cdn/message \
     -Isrc/cdn/networks \
     -Isrc/cdn/node \
     -Isrc/cdn/results
@@ -40,6 +62,7 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc and .msg files
 OBJS = \
+    $O/src/cdn/builder/netbuilderCDN.o \
     $O/src/cdn/builder/netbuilder.o \
     $O/src/cdn/content/Video.o \
     $O/src/cdn/content/Cache.o \
@@ -50,10 +73,12 @@ OBJS = \
     $O/src/cdn/node/Processador.o \
     $O/src/cdn/node/Refletor.o \
     $O/src/cdn/node/Indexador.o \
-    $O/src/cdn/node/Client.o
+    $O/src/cdn/node/Client.o \
+    $O/src/cdn/message/requestCDN_m.o
 
 # Message files
-MSGFILES =
+MSGFILES = \
+    src/cdn/message/requestCDN.msg
 
 # Other makefile variables (-K)
 INET_PROJ=../inet
@@ -124,6 +149,7 @@ clean:
 	-rm -f src/cdn/builder/netBuilder/*_m.cc src/cdn/builder/netBuilder/*_m.h
 	-rm -f src/cdn/content/*_m.cc src/cdn/content/*_m.h
 	-rm -f src/cdn/execption/*_m.cc src/cdn/execption/*_m.h
+	-rm -f src/cdn/message/*_m.cc src/cdn/message/*_m.h
 	-rm -f src/cdn/networks/*_m.cc src/cdn/networks/*_m.h
 	-rm -f src/cdn/node/*_m.cc src/cdn/node/*_m.h
 	-rm -f src/cdn/results/*_m.cc src/cdn/results/*_m.h
@@ -132,10 +158,12 @@ cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc src/*.cc src/cdn/*.cc src/cdn/builder/*.cc src/cdn/builder/netBuilder/*.cc src/cdn/content/*.cc src/cdn/execption/*.cc src/cdn/networks/*.cc src/cdn/node/*.cc src/cdn/results/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc src/*.cc src/cdn/*.cc src/cdn/builder/*.cc src/cdn/builder/netBuilder/*.cc src/cdn/content/*.cc src/cdn/execption/*.cc src/cdn/message/*.cc src/cdn/networks/*.cc src/cdn/node/*.cc src/cdn/results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
+$O/src/cdn/builder/netbuilderCDN.o: src/cdn/builder/netbuilderCDN.cc
 $O/src/cdn/builder/netbuilder.o: src/cdn/builder/netbuilder.cc
+$O/src/cdn/builder/teste.o: src/cdn/builder/teste.cc
 $O/src/cdn/content/Segment.o: src/cdn/content/Segment.cc \
 	src/cdn/content/Segment.h
 $O/src/cdn/content/Video.o: src/cdn/content/Video.cc \
@@ -155,13 +183,18 @@ $O/src/cdn/content/LruCache.o: src/cdn/content/LruCache.cc \
 	src/cdn/execption/Exceptions.h \
 	src/cdn/content/Video.h \
 	src/cdn/content/Cache.h
+$O/src/cdn/message/requestCDN_m.o: src/cdn/message/requestCDN_m.cc \
+	src/cdn/message/requestCDN_m.h
 $O/src/cdn/node/Processador.o: src/cdn/node/Processador.cc \
 	src/cdn/node/Processador.h
 $O/src/cdn/node/Indexador.o: src/cdn/node/Indexador.cc \
 	src/cdn/content/VideoSet.h \
 	src/cdn/node/Indexador.h \
 	src/cdn/content/Segment.h \
+	src/cdn/content/LruCache.h \
+	src/cdn/node/Refletor.h \
 	src/cdn/content/Video.h \
+	src/cdn/content/Cache.h \
 	src/cdn/node/Storage.h
 $O/src/cdn/node/Storage.o: src/cdn/node/Storage.cc \
 	src/cdn/content/VideoSet.h \
@@ -175,5 +208,13 @@ $O/src/cdn/node/Refletor.o: src/cdn/node/Refletor.cc \
 	src/cdn/content/Video.h \
 	src/cdn/content/Cache.h
 $O/src/cdn/node/Client.o: src/cdn/node/Client.cc \
+	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
+	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
+	$(INET_PROJ)/src/networklayer/contract/IPAddressResolver.h \
+	$(INET_PROJ)/src/networklayer/contract/IPvXAddress.h \
+	$(INET_PROJ)/src/base/INETDefs.h \
+	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
+	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
+	src/cdn/message/requestCDN_m.h \
 	src/cdn/node/Client.h
 

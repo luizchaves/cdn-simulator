@@ -11,28 +11,14 @@
 // 
 // You should have received a copy of the GNU Lesser General Public License
 // along with this program.  If not, see http://www.gnu.org/licenses/.
-// 
-
-#ifndef __CDN_CLIENT_H_
-#define __CDN_CLIENT_H_
-
-#include <omnetpp.h>
-#include <requestCDN_m.h>
-#include <UDPSocket.h>
-#include <UDPControlInfo_m.h>
-#include <IPAddressResolver.h>
-
-/**
- * TODO - Generated class
- */
-class Client : public cSimpleModule
+//
+packet RequestCDN
 {
-  public:
-	void bindToPort(int port);
-	void sendToUDP(cPacket *msg, int srcPort, const IPvXAddress& destAddr, int destPort);
-  protected:
-    virtual void initialize();
-    virtual void handleMessage(cMessage *msg);
-};
-
-#endif
+    @customize(true);
+    int cdnId;
+    int clientId;
+    int segmentId;
+    int source;
+    int destination;
+    int hopCount = 0;
+}

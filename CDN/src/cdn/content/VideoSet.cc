@@ -5,7 +5,6 @@ const double VideoSet::SIZE_SEG = 1000000.0;
 VideoSet::VideoSet(int id, int cdnId, const char *cdnName) {
 	this->_id = id;
 	this->_cdnId = cdnId;
-	this->_cdnName = cdnName;
 }
 
 VideoSet::~VideoSet() {
@@ -19,9 +18,6 @@ int VideoSet::getCDNId() {
 	return this->_cdnId;
 }
 
-const char *VideoSet::getCDNName() {
-	return this->_cdnName;
-}
 
 void VideoSet::addVideo(Video *video) {
 	this->_videoMap.insert(make_pair(video->getId(), video));

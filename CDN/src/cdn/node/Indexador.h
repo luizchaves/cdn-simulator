@@ -3,8 +3,9 @@
 
 #include <omnetpp.h>
 #include <Storage.h>
-#include <CacheSet.h>
+#include <Cache.h>
 #include <VideoSet.h>
+#include <Refletor.h>
 
 class Indexador : public cSimpleModule
 {

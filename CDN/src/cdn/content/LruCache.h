@@ -13,6 +13,7 @@ using namespace std;
 class LruCache : public Cache{
 	private:
 		int _id;
+		int _cdnId;
 
 		double _totalCapacity;
 		double _availableSpace;
@@ -33,7 +34,7 @@ class LruCache : public Cache{
 		totalCapacity>0
 		creates a new LruCache of totalCapacity capacity in bytes and loads content from file according to the objectsReference in order to get the objects' size
 		*/
-		LruCache(int id, int cdnId, const char *cdnName, double totalCapacity, int shrink);
+		LruCache(int id, int cdnId, double totalCapacity, int shrink);
 		//Every object in the _lruQueue is owned by the _lruQueue so it is deleted as well
 		~LruCache();
 		/*
@@ -41,7 +42,10 @@ class LruCache : public Cache{
 		returns true if id in _lruQueue else false
 		*/
 		int getId();
+		int getCDNId();
 		int getNumberSegment();
+		map<int, Segment*> getSegmentMap();
+		void addSegment(map<int, Segment*> segmentMap);
 
 
 		bool objectExists(int id);
