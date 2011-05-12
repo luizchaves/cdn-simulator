@@ -1,4 +1,4 @@
-package src.cdn.builder.netBuilder;
+package src.cdn.builder.old;
 
 import inet.nodes.inet.Router;
 import src.cdn.node.CDNNode;
