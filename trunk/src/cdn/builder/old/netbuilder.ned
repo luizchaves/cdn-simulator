@@ -1,4 +1,4 @@
-package src.cdn.builder;
+package src.cdn.builder.old;
 
 //
 // Dynamically sets up a network, with the topology coming from text files
