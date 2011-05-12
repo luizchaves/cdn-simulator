@@ -19,8 +19,8 @@ network Dynamic
 {
     submodules:
         builder: NetBuilderCDN {
-            routersFile = "/home/lucachaves/program/omnetpp-4.1/samples/CDN/src/cdn/builder/routersRNP.txt";
-        	elementsFile = "/home/lucachaves/program/omnetpp-4.1/samples/CDN/src/cdn/builder/elements.txt";
+            routersFile = "/home/lucachaves/program/omnetpp-4.1/samples/CDN/src/cdn/builder/configFile/routersRNP.txt";
+        	elementsFile = "/home/lucachaves/program/omnetpp-4.1/samples/CDN/src/cdn/builder/configFile/elements.txt";
         }
 }
 
