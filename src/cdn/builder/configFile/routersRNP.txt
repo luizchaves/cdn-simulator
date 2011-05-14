@@ -1,7 +1,7 @@
 # Description of Node's Name
 NODES AC,AL,AP,AM,BA,CE,DF,ES,GO,MA,MT,MS,MG,PA,PB,PR,PE,PI,RJ,RN,RS,RO,RR,SC,SP,SE,TO
 # The attraction level is number of enlace (default)
-ATTRACTION 
+ATTRACTION SP=10,RJ=8
 # Enlaces
 AC,DF,6.0MBPS,10.0MS
 AL,PE,10.0GBPS,10.0MS

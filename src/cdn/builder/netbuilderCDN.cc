@@ -8,7 +8,7 @@
 
 /**
  * Builds a network dynamically, with the topology coming from a
- * text file.
+ * text file: elements and routers.
  */
 class NetBuilderCDN: public cSimpleModule {
 protected:
@@ -19,34 +19,22 @@ protected:
 	virtual void initialize();
 	virtual void handleMessage(cMessage *msg);
 	std::map<long, cModule*> nodeid2mod;
-	int numberRouter;
-	int numberStorage;
-	int numberRefletor;
-	int numberIndexador;
-	int numberProcessador;
-	int numberClient;
 	long totalModule;
 private:
 	std::map<long, cModule*> generateModuleCDN(cModule *parent);
 	void generateConnectionCDNRandom(std::map<long, cModule*> & nodeid2mod);
 };
 
-Define_Module(NetBuilderCDN)
-;
+Define_Module(NetBuilderCDN);
 
 void NetBuilderCDN::initialize() {
-	// build the network in event 1, because it is undefined whether the simkernel
-	// will implicitly initialize modules created *during* initialization, or this needs
-	// to be done manually.
 	scheduleAt(0, new cMessage());
 }
 
 void NetBuilderCDN::handleMessage(cMessage *msg) {
 	if (!msg->isSelfMessage())
 		error("This module does not process messages.");
-
 	delete msg;
-
 	buildNetwork(getParentModule());
 }
 
@@ -66,11 +54,14 @@ void NetBuilderCDN::connect(cGate *src, cGate *dest, double delay, double ber,
 }
 
 std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
-	std::map<long, cModule*> nodeid2mod;
 	std::string line;
-	std::map<std::string, int> routersName;
-	std::map<std::string, int> routersAttraction;
 	std::fstream nodesFile(par("routersFile").stringValue(), std::ios::in);
+	std::fstream elementsFile(par("routersFile").stringValue(), std::ios::in);
+	std::map<long, cModule*> nodeid2mod;
+	std::map<std::string, int> routersName;
+	bool scanAttraction = false;
+	std::map<std::string, int> routersAttraction;
+	std::string tokensAttraction;
 	int numberRouter = 0;
 
 	while (getline(nodesFile, line, '\n')) {
@@ -87,7 +78,6 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 		tokenizerEnlace.setDelimiter(",");
 		std::vector<std::string> tokensEnlace = tokenizerEnlace.asVector();
 
-
 		if (strcmp(tokens[0].c_str(), "NODES") == 0) {
 			// Description of Node's Name
 			cStringTokenizer tokenizerRouters(tokens[1].c_str());
@@ -96,7 +86,6 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 					tokenizerRouters.asVector();
 			for (std::vector<std::string>::iterator it = tokensRouters.begin(); it
 					< tokensRouters.end(); it++) {
-				EV << "NODE NAME " << (*it).c_str() << endl;
 				const char *displayString = "";
 				const char *modtypename = "inet.nodes.inet.Router";
 				cModuleType *modtype = cModuleType::get(modtypename);
@@ -116,31 +105,8 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 				numberRouter++;
 			}
 		} else if (strcmp(tokens[0].c_str(), "ATTRACTION") == 0){
-			// Define attraction level
-			cStringTokenizer tokenizerAttraction(tokens[1].c_str());
-			tokenizerAttraction.setDelimiter(",");
-			std::vector<std::string> tokensAttraction =
-					tokenizerAttraction.asVector();
-			for (std::vector<std::string>::iterator it = tokensAttraction.begin(); it
-					< tokensAttraction.end(); it++) {
-				cStringTokenizer tokenizer((*it).c_str());
-				tokenizer.setDelimiter("=");
-				std::vector<std::string> tokensAtt = tokenizer.asVector();
-				routersAttraction.insert(std::make_pair(tokensAtt[0],atol(tokensAtt[1].c_str())));
-			}
-			if(routersName.size() != routersAttraction.size()){
-				for(std::map<std::string, int>::iterator it = routersName.begin(); it
-						!= routersName.end(); it++){
-					std::map<std::string, int>::iterator itA;
-					itA = routersAttraction.find(it->first);
-					cModule *mod = nodeid2mod[it->second];
-					std::cout << mod->getFullPath() << " " << mod->getVectorSize() << endl;
-					if(itA == routersAttraction.end()){
-						routersAttraction.insert(std::make_pair(it->first,1));
-					}
-
-				}
-			}
+			scanAttraction = true;
+			tokensAttraction = tokens[1].c_str();
 		} else if (tokensEnlace.size() == 4) {
 			// Enlaces
 			// get fields from tokens
@@ -180,16 +146,40 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 			connect(srcOut, destIn, delay, error, datarate);
 			connect(destOut, srcIn, delay, error, datarate);
 		}
-
 	}
+	if (scanAttraction == true){
+		// Define attraction level
+		//TODO Chek if attraction is empty
+		cStringTokenizer tokenizerAttraction(tokensAttraction.c_str());
+		tokenizerAttraction.setDelimiter(",");
+		std::vector<std::string> tokensAttraction = tokenizerAttraction.asVector();
+		// Calcute value of Attraction by default
+		if(routersName.size() != routersAttraction.size()){
+			for(std::map<std::string,int>::iterator itRoutersName = routersName.begin();itRoutersName != routersName.end();itRoutersName++){
+				std::map<std::string,int>::iterator itRoutersAttraction;
+				itRoutersAttraction = routersAttraction.find(itRoutersName->first);
+				cModule *mod = nodeid2mod[itRoutersName->second];
+				std::cout << "Atraction " << mod->getFullPath() << " " << mod->gateCount()/2 << endl;
+				if(itRoutersAttraction == routersAttraction.end()){
+					routersAttraction.insert(std::make_pair(itRoutersName->first, mod->gateCount()/2));
+				}
+			}
+		}
+		//Insert values of attraction in map
+		for(std::vector<std::string>::iterator it = tokensAttraction.begin();it < tokensAttraction.end();it++){
+			cStringTokenizer tokenizer((*it).c_str());
+			tokenizer.setDelimiter("=");
+			std::vector<std::string> contentAttraction = tokenizer.asVector();
+			routersAttraction.insert(std::make_pair(contentAttraction[0], atol(contentAttraction[1].c_str())));
+		}
+	}
+
 	return nodeid2mod;
 }
 
 void NetBuilderCDN::buildNetwork(cModule *parent) {
 	nodeid2mod = generateModuleCDN(parent);
-
 	std::map<long, cModule *>::iterator it;
-
 	// final touches: buildinside, initialize()
 	for (it = nodeid2mod.begin(); it != nodeid2mod.end(); ++it) {
 		cModule *mod = it->second;

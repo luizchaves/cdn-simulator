@@ -40,7 +40,8 @@ INCLUDE_PATH = \
     -Isrc \
     -Isrc/cdn \
     -Isrc/cdn/builder \
-    -Isrc/cdn/builder/netBuilder \
+    -Isrc/cdn/builder/configFile \
+    -Isrc/cdn/builder/old \
     -Isrc/cdn/content \
     -Isrc/cdn/execption \
     -Isrc/cdn/message \
@@ -63,7 +64,7 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 # Object files for local .cc and .msg files
 OBJS = \
     $O/src/cdn/builder/netbuilderCDN.o \
-    $O/src/cdn/builder/netbuilder.o \
+    $O/src/cdn/builder/old/netbuilder.o \
     $O/src/cdn/content/Video.o \
     $O/src/cdn/content/Cache.o \
     $O/src/cdn/content/VideoSet.o \
@@ -146,7 +147,8 @@ clean:
 	-rm -f src/*_m.cc src/*_m.h
 	-rm -f src/cdn/*_m.cc src/cdn/*_m.h
 	-rm -f src/cdn/builder/*_m.cc src/cdn/builder/*_m.h
-	-rm -f src/cdn/builder/netBuilder/*_m.cc src/cdn/builder/netBuilder/*_m.h
+	-rm -f src/cdn/builder/configFile/*_m.cc src/cdn/builder/configFile/*_m.h
+	-rm -f src/cdn/builder/old/*_m.cc src/cdn/builder/old/*_m.h
 	-rm -f src/cdn/content/*_m.cc src/cdn/content/*_m.h
 	-rm -f src/cdn/execption/*_m.cc src/cdn/execption/*_m.h
 	-rm -f src/cdn/message/*_m.cc src/cdn/message/*_m.h
@@ -158,11 +160,11 @@ cleanall: clean
 	-rm -rf $(PROJECT_OUTPUT_DIR)
 
 depend:
-	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc src/*.cc src/cdn/*.cc src/cdn/builder/*.cc src/cdn/builder/netBuilder/*.cc src/cdn/content/*.cc src/cdn/execption/*.cc src/cdn/message/*.cc src/cdn/networks/*.cc src/cdn/node/*.cc src/cdn/results/*.cc
+	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc src/*.cc src/cdn/*.cc src/cdn/builder/*.cc src/cdn/builder/configFile/*.cc src/cdn/builder/old/*.cc src/cdn/content/*.cc src/cdn/execption/*.cc src/cdn/message/*.cc src/cdn/networks/*.cc src/cdn/node/*.cc src/cdn/results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/src/cdn/builder/netbuilderCDN.o: src/cdn/builder/netbuilderCDN.cc
-$O/src/cdn/builder/netbuilder.o: src/cdn/builder/netbuilder.cc
+$O/src/cdn/builder/old/netbuilder.o: src/cdn/builder/old/netbuilder.cc
 $O/src/cdn/content/Segment.o: src/cdn/content/Segment.cc \
 	src/cdn/content/Segment.h
 $O/src/cdn/content/Video.o: src/cdn/content/Video.cc \
