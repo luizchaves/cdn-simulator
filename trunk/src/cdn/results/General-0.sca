@@ -1,14 +1,14 @@
 version 2
-run General-0-20110514-16:31:57-5550
+run General-0-20110514-18:42:31-9919
 attr configname General
-attr datetime 20110514-16:31:57
+attr datetime 20110514-18:42:31
 attr experiment General
 attr inifile /home/lucachaves/program/omnetpp-4.1/samples/CDN/src/cdn/omnetpp.ini
 attr iterationvars ""
 attr iterationvars2 $repetition=0
 attr measurement ""
 attr network src.cdn.networks.Dynamic
-attr processid 5550
+attr processid 9919
 attr repetition 0
 attr replication #0
 attr resultdir results
@@ -147,6 +147,8 @@ scalar Dynamic.PB.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.PB.ppp[0].queue 	"packets dropped by queue" 	0
 scalar Dynamic.PB.ppp[1].queue 	"packets received by queue" 	0
 scalar Dynamic.PB.ppp[1].queue 	"packets dropped by queue" 	0
+scalar Dynamic.PB.ppp[2].queue 	"packets received by queue" 	0
+scalar Dynamic.PB.ppp[2].queue 	"packets dropped by queue" 	0
 scalar Dynamic.PR.networkLayer.arp 	"ARP requests sent" 	0
 scalar Dynamic.PR.networkLayer.arp 	"ARP replies sent" 	0
 scalar Dynamic.PR.networkLayer.arp 	"ARP resolutions" 	0
@@ -255,3 +257,9 @@ scalar Dynamic.TO.networkLayer.arp 	"ARP resolutions" 	0
 scalar Dynamic.TO.networkLayer.arp 	"failed ARP resolutions" 	0
 scalar Dynamic.TO.ppp[0].queue 	"packets received by queue" 	0
 scalar Dynamic.TO.ppp[0].queue 	"packets dropped by queue" 	0
+scalar Dynamic.ST01.networkLayer.arp 	"ARP requests sent" 	0
+scalar Dynamic.ST01.networkLayer.arp 	"ARP replies sent" 	0
+scalar Dynamic.ST01.networkLayer.arp 	"ARP resolutions" 	0
+scalar Dynamic.ST01.networkLayer.arp 	"failed ARP resolutions" 	0
+scalar Dynamic.ST01.ppp[0].queue 	"packets received by queue" 	0
+scalar Dynamic.ST01.ppp[0].queue 	"packets dropped by queue" 	0
