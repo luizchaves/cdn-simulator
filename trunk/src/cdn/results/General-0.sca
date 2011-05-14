@@ -1,14 +1,14 @@
 version 2
-run General-0-20110507-17:32:14-7776
+run General-0-20110514-16:31:57-5550
 attr configname General
-attr datetime 20110507-17:32:14
+attr datetime 20110514-16:31:57
 attr experiment General
 attr inifile /home/lucachaves/program/omnetpp-4.1/samples/CDN/src/cdn/omnetpp.ini
 attr iterationvars ""
 attr iterationvars2 $repetition=0
 attr measurement ""
 attr network src.cdn.networks.Dynamic
-attr processid 7776
+attr processid 5550
 attr repetition 0
 attr replication #0
 attr resultdir results

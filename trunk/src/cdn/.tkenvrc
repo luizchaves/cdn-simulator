@@ -1,3 +1,5 @@
 # Partial Tkenv config file -- see $HOME/.tkenvrc as well
+inspector "Dynamic" "Dynamic" "2" "1278x720+0+24:normal"
+inspector "Dynamic.GO" "Router" "2" "607x342+672+429:iconic"
 inspector "Network" "Network" "2" "1280x725+0+51:normal"
 
