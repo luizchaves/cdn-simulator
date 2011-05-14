@@ -23,6 +23,7 @@ protected:
 private:
 	std::map<long, cModule*> generateModuleCDN(cModule *parent);
 	void generateConnectionCDNRandom(std::map<long, cModule*> & nodeid2mod);
+    float extractDataRatio(std::string valueEnlace, float datarate);
 };
 
 Define_Module(NetBuilderCDN);
@@ -53,16 +54,42 @@ void NetBuilderCDN::connect(cGate *src, cGate *dest, double delay, double ber,
 	src->connectTo(dest, channel);
 }
 
+float NetBuilderCDN::extractDataRatio(std::string valueEnlace, float datarate)
+{
+    char metricDR[5];
+    sscanf(valueEnlace.c_str(), "%f%s", &datarate, metricDR);
+    for(int i = 0;i < 5;i++){
+        metricDR[i] = tolower(metricDR[i]);
+    }
+    if(strcmp(metricDR, "gbps") == 0)
+        datarate *= 1000000000;
+
+    if(strcmp(metricDR, "mbps") == 0)
+        datarate *= 1000000;
+
+    if(strcmp(metricDR, "kbps") == 0)
+        datarate *= 1000;
+
+    return datarate;
+}
 std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 	std::string line;
 	std::fstream nodesFile(par("routersFile").stringValue(), std::ios::in);
-	std::fstream elementsFile(par("routersFile").stringValue(), std::ios::in);
+	std::fstream elementsFile(par("elementsFile").stringValue(), std::ios::in);
 	std::map<long, cModule*> nodeid2mod;
 	std::map<std::string, int> routersName;
+	std::map<std::string, int> storageName;
+	std::map<std::string, int> indexerName;
+	std::map<std::string, int> reflectorName;
+	std::map<std::string, int> processorName;
 	bool scanAttraction = false;
-	std::map<std::string, int> routersAttraction;
 	std::string tokensAttraction;
+	std::map<std::string, int> routersAttraction;
 	int numberRouter = 0;
+	int numberStorage = 0;
+	int numberIndexer = 0;
+	int numberReflector = 0;
+	int numberProcessor = 0;
 
 	while (getline(nodesFile, line, '\n')) {
 		if (line.empty() || line[0] == '#')
@@ -113,20 +140,10 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 			EV << tokensEnlace[0] << " " << tokensEnlace[1] << " " << tokensEnlace[2] << " " << tokensEnlace[3] << endl;
 			long srcnodeid = routersName.find(tokensEnlace[0].c_str())->second;
 			long destnodeid = routersName.find(tokensEnlace[1].c_str())->second;
-			//TODO
 			float datarate = -1;
-			char metricDR[5];
-			sscanf(tokensEnlace[2].c_str(), "%f%s", &datarate, metricDR);
-			for(int i = 0; i < 5; i++){
-				metricDR[i] = tolower(metricDR[i]);
-			}
-			if(strcmp(metricDR,"gbps")==0)
-				datarate *= 1000000000;
-			if(strcmp(metricDR,"mbps")==0)
-				datarate *= 1000000;
-			if(strcmp(metricDR,"kbps")==0)
-				datarate *= 1000;
+			datarate = extractDataRatio(tokensEnlace[2].c_str(), datarate);
 			float delay = -1;
+			//TODO Extract method
 			char metricD[3];
 			sscanf(tokensEnlace[3].c_str(), "%f%c", &delay, metricD);
 			double error = 0;
@@ -174,6 +191,120 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 		}
 	}
 
+	while (getline(elementsFile, line, '\n')) {
+			if (line.empty() || line[0] == '#')
+				continue;
+
+			// Split in space
+			cStringTokenizer tokenizer(line.c_str());
+			tokenizer.setDelimiter(" ");
+			std::vector<std::string> tokens = tokenizer.asVector();
+
+			if (strcmp(tokens[0].c_str(), "LOCAL_CONNECTIVITY") == 0) {
+				// Description of Node's Name
+				cStringTokenizer valueLinkElements(tokens[1].c_str());
+				valueLinkElements.setDelimiter(",");
+				std::vector<std::string> tokensRouters =
+						valueLinkElements.asVector();
+			}
+
+			// Split in comma
+			cStringTokenizer enlaces(line.c_str());
+			enlaces.setDelimiter(",");
+			std::vector<std::string> tokensEnlaces = enlaces.asVector();
+
+			//TODO Case third element is string
+			//TODO Try omit delay
+			if (tokensEnlaces.size() == 5 || tokensEnlaces.size() == 4 || tokensEnlaces.size() == 3) {
+				// chek kind and create element
+				const char *displayString = "";
+				const char *modtypename = "src.cdn.node.CDNNode";
+				const char *modName;
+				int *number;
+				int addNumber = 0;
+				std::map<std::string, int> *mapElement;
+				cModuleType *modtype = cModuleType::get(modtypename);
+				if(!modtype)
+					throw cRuntimeError("module type `%s' for node `%d' not found",modtypename, numberRouter);
+				cModule *mod;
+				mod = modtype->create(modName, parent);
+				if(strcmp(tokensEnlaces[1].c_str(), "STORAGE") == 0){
+					modName = "storage";
+					number = &numberStorage;
+					mapElement = &storageName;
+					addNumber = numberRouter;
+					displayString = "i=device/server";
+					mod->par("udpAppType").setStringValue("Storage");
+					mod->par("type").setStringValue("s");
+				} else if(strcmp(tokensEnlaces[1].c_str(), "INDEXER") == 0){
+					modName = "indexer";
+					number = &numberIndexer;
+					mapElement = &indexerName;
+					addNumber = numberRouter + numberStorage;
+					displayString = "i=block/network2";
+					mod->par("udpAppType").setStringValue("Indexer");
+					mod->par("type").setStringValue("i");
+				} else if(strcmp(tokensEnlaces[1].c_str(), "REFLECTOR") == 0) {
+					modName = "reflector";
+					number = &numberReflector;
+					mapElement = &reflectorName;
+					addNumber = numberRouter + numberStorage + numberIndexer;
+					displayString = "i=abstract/db";
+					mod->par("udpAppType").setStringValue("Reflector");
+					mod->par("type").setStringValue("r");
+				} else if(strcmp(tokensEnlaces[1].c_str(), "PROCESSOR") == 0) {
+					modName = "processor";
+					number = &numberProcessor;
+					mapElement = &processorName;
+					addNumber = numberRouter + numberStorage + numberIndexer + numberReflector;
+					displayString = "i=device/cpu";
+					mod->par("udpAppType").setStringValue("Processor");
+					mod->par("type").setStringValue("p");
+				}
+				mod->par("numUdpApps").setLongValue(100);
+				mod->setName(tokensEnlaces[0].c_str());
+				nodeid2mod[*number + addNumber] = mod;
+				// read params from the ini file, etc
+				mod->finalizeParameters();
+				// modify display string
+				if(strcmp("", displayString) != 0)
+					mod->setDisplayString(displayString);
+				// insert in map
+				mapElement->insert(std::make_pair(tokensEnlaces[0], *number + addNumber));
+				EV << "NODE ID " << modName << " " << *number+addNumber << endl;
+				*number++;
+				// connect
+				EV << tokensEnlaces[0] << " " << tokensEnlaces[1] << " " << tokensEnlaces[2] << " " << tokensEnlaces[3] << tokensEnlaces[4] << endl;
+				long srcnodeid = routersName.find(tokensEnlaces[2].c_str())->second;
+				long destnodeid = mapElement->find(tokensEnlaces[0].c_str())->second;
+				float datarate = -1;
+				datarate = extractDataRatio(tokensEnlaces[3].c_str(), datarate);
+				float delay = -1;
+				//TODO Extract method
+				char metricD[3];
+				sscanf(tokensEnlaces[4].c_str(), "%f%c", &delay, metricD);
+				double error = 0;
+				EV << "Enlace " << srcnodeid << ", " << destnodeid << ", " << datarate << ", " << delay << endl;
+				if(nodeid2mod.find(srcnodeid) == nodeid2mod.end())
+					throw cRuntimeError("wrong line in connections file: node with id=%ld not found", srcnodeid);
+
+				if(nodeid2mod.find(destnodeid) == nodeid2mod.end())
+					throw cRuntimeError("wrong line in connections file: node with id=%ld not found", destnodeid);
+
+				cModule *srcmod = nodeid2mod[srcnodeid];
+				cModule *destmod = nodeid2mod[destnodeid];
+				cGate *srcIn, *srcOut, *destIn, *destOut;
+				srcmod->getOrCreateFirstUnconnectedGatePair("pppg", false, true, srcIn, srcOut);
+				destmod->getOrCreateFirstUnconnectedGatePair("pppg", false, true, destIn, destOut);
+				// connect
+				connect(srcOut, destIn, delay, error, datarate);
+				connect(destOut, srcIn, delay, error, datarate);
+			}
+			//TODO Case third element is not string
+			if (tokensEnlaces.size() == 3) {
+
+			}
+	}
 	return nodeid2mod;
 }
 
