@@ -13,16 +13,16 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#include "Processador.h"
+#include "Processor.h"
 
-Define_Module(Processador);
+Define_Module(Processor);
 
-void Processador::initialize()
+void Processor::initialize()
 {
     // TODO - Generated method body
 }
 
-void Processador::handleMessage(cMessage *msg)
+void Processor::handleMessage(cMessage *msg)
 {
     // TODO - Generated method body
 }

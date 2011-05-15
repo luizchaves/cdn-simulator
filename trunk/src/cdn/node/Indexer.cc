@@ -13,12 +13,12 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#include "Indexador.h"
+#include "Indexer.h"
 
-Define_Module(Indexador)
+Define_Module(Indexer)
 ;
 
-void Indexador::initialize(int stage) {
+void Indexer::initialize(int stage) {
 	if (stage == 99) {
 		for (cModule::SubmoduleIterator iter(
 				getParentModule()->getParentModule()); !iter.end(); iter++) {
@@ -192,14 +192,14 @@ void Indexador::initialize(int stage) {
 	}
 }
 
-void Indexador::handleMessage(cMessage *msg) {
+void Indexer::handleMessage(cMessage *msg) {
 	// TODO - Generated method body
 }
 
-cModule *Indexador::getContentInStorage(Segment *segment) {
+cModule *Indexer::getContentInStorage(Segment *segment) {
 	return NULL;
 }
 
-cModule *Indexador::getContentInRefletor(Segment *segment) {
+cModule *Indexer::getContentInRefletor(Segment *segment) {
 	return NULL;
 }

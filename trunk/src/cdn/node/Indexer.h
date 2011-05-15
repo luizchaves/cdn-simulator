@@ -1,5 +1,5 @@
-#ifndef __CDN_INDEXADOR_H_
-#define __CDN_INDEXADOR_H_
+#ifndef __CDN_INDEXER_H_
+#define __CDN_INDEXER_H_
 
 #include <omnetpp.h>
 #include <Storage.h>
@@ -7,7 +7,7 @@
 #include <VideoSet.h>
 #include <Refletor.h>
 
-class Indexador : public cSimpleModule
+class Indexer : public cSimpleModule
 {
   private:
 	map<int, VideoSet*> cdnStorageContentMap;
