@@ -3,7 +3,7 @@ package src.cdn.node;
 import inet.applications.udpapp.UDPApp;
 
 
-simple Indexador like UDPApp
+simple Processor like UDPApp
 {
     parameters:
         //int serverPort; // port to listen on

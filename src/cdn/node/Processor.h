@@ -13,15 +13,15 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#ifndef __CDN_PROCESSADOR_H_
-#define __CDN_PROCESSADOR_H_
+#ifndef __CDN_PROCESSOR_H_
+#define __CDN_PROCESSOR_H_
 
 #include <omnetpp.h>
 
 /**
  * TODO - Generated class
  */
-class Processador : public cSimpleModule
+class Processor : public cSimpleModule
 {
   protected:
     virtual void initialize();
