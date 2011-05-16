@@ -21,7 +21,7 @@ Define_Module(Storage);
 void Storage::initialize()
 {
 	int numberVideo = uniform(0, 100, (int) dblrand()*1000);
-	//TODO criar várias videoset
+	//TODO criar varias videoset
 	VideoSet videoSet(time(NULL), 1, "ITVp");
 	for (int i = 0; i < numberVideo; i++) {
 		//TODO pegar bernauli e bitarte para saber o tamanho do video e depois o num de seg

@@ -29,18 +29,24 @@ void Client::handleMessage(cMessage *msg)
 
 	delete msg;
 
-	cPacket *newMsg = new cPacket();
-	bindToPort(1000);
-	IPvXAddress serveAddress = NULL;
+
+	cModule* moduleIndexer;
 	for (cModule::SubmoduleIterator iter(
 			getParentModule()->getParentModule()); !iter.end(); iter++) {
 		if (strcmp(iter()->getModuleType()->getName(), "CDNNode") == 0) {
+			//TODO usar algum critério de seleção
 			if (!strcmp(((cModule*) iter())->par("type"), "i")) {
-				 serveAddress = IPAddressResolver().addressOf(((cModule*)iter())->getParentModule()->getParentModule());
+				moduleIndexer = iter();
+				break;
 			}
 		}
 	}
-	sendToUDP(newMsg, 1000, serveAddress, 1000);
+	EV << "Module Name " << moduleIndexer->getFullName() << endl;
+	bindToPort(1000);
+	cPacket *newMsg = new cPacket();
+	IPvXAddress serverAddress = IPAddressResolver().addressOf(moduleIndexer);
+	EV << "Requesting video stream from " << serverAddress << ":" << 1000 << "\n";
+	sendToUDP(newMsg, 1000, serverAddress, 1000);
 }
 
 void Client::bindToPort(int port) {

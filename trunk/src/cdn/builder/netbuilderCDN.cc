@@ -20,8 +20,15 @@ protected:
 	virtual void handleMessage(cMessage *msg);
 	std::map<long, cModule*> nodeid2mod;
 	long totalModule;
+	int numberRouter;
+	int numberStorage;
+	int numberIndexer;
+	int numberReflector;
+	int numberProcessor;
+	int numberClient;
 private:
 	std::map<long, cModule*> generateModuleCDN(cModule *parent);
+	void generateClientCDN(cModule *parent, std::map<long, cModule*> nodeid2mod);
 	void generateConnectionCDNRandom(std::map<long, cModule*> & nodeid2mod);
     float extractDataRatio(std::string valueEnlace);
 };
@@ -29,14 +36,23 @@ private:
 Define_Module(NetBuilderCDN);
 
 void NetBuilderCDN::initialize() {
-	scheduleAt(0, new cMessage());
+	numberRouter = 0;
+	numberStorage = 0;
+	numberIndexer = 0;
+	numberReflector = 0;
+	numberProcessor = 0;
+	numberClient = 0;
+	scheduleAt(0, new cMessage("BuildCDN", 1));
 }
 
 void NetBuilderCDN::handleMessage(cMessage *msg) {
 	if (!msg->isSelfMessage())
 		error("This module does not process messages.");
 	delete msg;
-	buildNetwork(getParentModule());
+	if(msg->getKind() == 1)
+		buildNetwork(getParentModule());
+	if(msg->getKind() == 2)
+		generateClientCDN(getParentModule(), nodeid2mod);
 }
 
 void NetBuilderCDN::connect(cGate *src, cGate *dest, double delay, double ber,
@@ -86,11 +102,7 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 	bool scanAttraction = false;
 	std::string tokensAttraction;
 	std::map<std::string, int> routersAttraction;
-	int numberRouter = 0;
-	int numberStorage = 0;
-	int numberIndexer = 0;
-	int numberReflector = 0;
-	int numberProcessor = 0;
+
 
 	while (getline(nodesFile, line, '\n')) {
 		if (line.empty() || line[0] == '#')
@@ -239,6 +251,7 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 					addNumber = numberRouter;
 					displayString = "i=device/server";
 					mod = modtype->create(modName, parent);
+					mod->par("numUdpApps").setLongValue(1);
 					mod->par("udpAppType").setStringValue("Storage");
 					mod->par("type").setStringValue("s");
 				} else if(strcmp(tokensEnlaces[1].c_str(), "INDEXER") == 0){
@@ -248,6 +261,7 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 					addNumber = numberRouter + numberStorage;
 					displayString = "i=block/network2";
 					mod = modtype->create(modName, parent);
+					mod->par("numUdpApps").setLongValue(1);
 					mod->par("udpAppType").setStringValue("Indexer");
 					mod->par("type").setStringValue("i");
 				} else if(strcmp(tokensEnlaces[1].c_str(), "REFLECTOR") == 0) {
@@ -257,6 +271,7 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 					addNumber = numberRouter + numberStorage + numberIndexer;
 					displayString = "i=abstract/db";
 					mod = modtype->create(modName, parent);
+					mod->par("numUdpApps").setLongValue(1);
 					mod->par("udpAppType").setStringValue("Reflector");
 					mod->par("type").setStringValue("r");
 				} else if(strcmp(tokensEnlaces[1].c_str(), "PROCESSOR") == 0) {
@@ -266,10 +281,10 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 					addNumber = numberRouter + numberStorage + numberIndexer + numberReflector;
 					displayString = "i=device/cpu";
 					mod = modtype->create(modName, parent);
+					mod->par("numUdpApps").setLongValue(1);
 					mod->par("udpAppType").setStringValue("Processor");
 					mod->par("type").setStringValue("p");
 				}
-				mod->par("numUdpApps").setLongValue(100);
 				mod->setName(tokensEnlaces[0].c_str());
 				nodeid2mod[*number + addNumber] = mod;
 				// read params from the ini file, etc
@@ -326,8 +341,10 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 				int addNumber = 0;
 				std::map<std::string, int> *mapElement;
 				int repeatNumber = 0;
-				char metricD[1];
+				char metricD[1] = "";
 				sscanf(tokensEnlaces[2].c_str(), "%c%d", metricD, &repeatNumber);
+				if (isdigit(metricD[0]))
+					sscanf(tokensEnlaces[2].c_str(), "%d", &repeatNumber);
 				for (int var = 0; var < repeatNumber; ++var) {
 					cModuleType *modtype = cModuleType::get(modtypename);
 					if(!modtype)
@@ -340,6 +357,7 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 						addNumber = numberRouter;
 						displayString = "i=device/server";
 						mod = modtype->create(modName, parent);
+						mod->par("numUdpApps").setLongValue(1);
 						mod->par("udpAppType").setStringValue("Storage");
 						mod->par("type").setStringValue("s");
 					} else if(strcmp(tokensEnlaces[1].c_str(), "INDEXER") == 0){
@@ -349,6 +367,7 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 						addNumber = numberRouter + numberStorage;
 						displayString = "i=block/network2";
 						mod = modtype->create(modName, parent);
+						mod->par("numUdpApps").setLongValue(1);
 						mod->par("udpAppType").setStringValue("Indexer");
 						mod->par("type").setStringValue("i");
 					} else if(strcmp(tokensEnlaces[1].c_str(), "REFLECTOR") == 0) {
@@ -358,6 +377,7 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 						addNumber = numberRouter + numberStorage + numberIndexer;
 						displayString = "i=abstract/db";
 						mod = modtype->create(modName, parent);
+						mod->par("numUdpApps").setLongValue(1);
 						mod->par("udpAppType").setStringValue("Reflector");
 						mod->par("type").setStringValue("r");
 					} else if(strcmp(tokensEnlaces[1].c_str(), "PROCESSOR") == 0) {
@@ -367,10 +387,10 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 						addNumber = numberRouter + numberStorage + numberIndexer + numberReflector;
 						displayString = "i=device/cpu";
 						mod = modtype->create(modName, parent);
+						mod->par("numUdpApps").setLongValue(1);
 						mod->par("udpAppType").setStringValue("Processor");
 						mod->par("type").setStringValue("p");
 					}
-					mod->par("numUdpApps").setLongValue(100);
 					std::stringstream numberStream;
 					numberStream << *number;
 					std::string nameModule = std::string(tokensEnlaces[0].c_str()).append(numberStream.str()).c_str();
@@ -394,7 +414,8 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 					// connect
 					//TODO escolher roteador FDP
 					//TODO real random
-					//TODO se o caracter for diferente não pode escolher roteadores que já possuam o mesmo elemento
+					//TODO se o caracter for diferente não pode escolher roteadores que já possuam
+					// o mesmo elemento e se for positivo escolher o grau de atração
 					int addRouter = uniform(0, numberRouter, (int) dblrand()*1e6);
 					std::map<std::string, int>::iterator itRouter =routersName.begin();
 					for (int var = 0; var < addRouter; ++var) {
@@ -425,12 +446,6 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 				}
 			}
 	}
-	return nodeid2mod;
-}
-
-void NetBuilderCDN::buildNetwork(cModule *parent) {
-	nodeid2mod = generateModuleCDN(parent);
-	//TODO Generate Client e fluxo
 	std::map<long, cModule *>::iterator it;
 	// final touches: buildinside, initialize()
 	for (it = nodeid2mod.begin(); it != nodeid2mod.end(); ++it) {
@@ -448,5 +463,82 @@ void NetBuilderCDN::buildNetwork(cModule *parent) {
 				more = true;
 		}
 	}
+	return nodeid2mod;
 }
+
+void NetBuilderCDN::generateClientCDN(cModule *parent, std::map<long, cModule*> nodeid2mod) {
+	cModuleType *modtype = cModuleType::get("src.cdn.node.CDNNode");
+	if(!modtype){
+		throw cRuntimeError("module type `%s' for node `%d' not found", "src.cdn.node.CDNNode", numberClient);
+	}
+
+	std::stringstream number;
+	number << numberClient;
+
+	cModule *mod = modtype->create("client", parent);
+	mod->setName(std::string("CL").append(number.str()).c_str());
+	mod->par("numUdpApps").setLongValue(1);
+	mod->par("udpAppType").setStringValue("Client");
+	mod->par("type").setStringValue("c");
+
+	nodeid2mod[numberClient] = mod;
+	// read params from the ini file, etc
+	mod->finalizeParameters();
+
+	long srcnodeid = numberClient;
+	long destnodeid = (long) uniform(0, numberRouter, (int) dblrand()*1e6);
+	double datarate = 1e6;
+	double delay = 0.01;
+	double error = 0;
+	EV << srcnodeid << " " << destnodeid << endl;
+	if(nodeid2mod.find(srcnodeid) == nodeid2mod.end())
+		throw cRuntimeError("wrong line in connections file: node with id=%ld not found", srcnodeid);
+
+	if(nodeid2mod.find(destnodeid) == nodeid2mod.end())
+		throw cRuntimeError("wrong line in connections file: node with id=%ld not found", destnodeid);
+
+	cModule *srcmod = nodeid2mod[srcnodeid];
+	cModule *destmod = nodeid2mod[destnodeid];
+	cGate *srcIn, *srcOut, *destIn, *destOut;
+	srcmod->getOrCreateFirstUnconnectedGatePair("pppg", false, true, srcIn, srcOut);
+	destmod->getOrCreateFirstUnconnectedGatePair("pppg", false, true, destIn, destOut);
+	// connect
+	connect(srcOut, destIn, delay, error, datarate);
+	connect(destOut, srcIn, delay, error, datarate);
+	numberClient++;
+	// final touches: buildinside, initialize()
+	mod->buildInside();
+	// multi-stage init
+	bool more = true;
+	for (int stage = 0; more; stage++) {
+		more = false;
+		if (mod->callInitialize(stage))
+			more = true;
+	}
+	//TODO Testar a inclusão do flat network do inet
+	/*FlatNetworkConfigurator netConfig;
+	netConfig.par("netmask").setStringValue("255.255.0.0");
+	netConfig.par("networkAddress").setStringValue("192.168.0.0");
+	// read params from the ini file, etc
+	netConfig.finalizeParameters();
+	netConfig.buildInside();
+	// multi-stage init
+	more = true;
+	for (int stage = 0; more; stage++) {
+		more = false;
+		if (netConfig.callInitialize(stage))
+			more = true;
+	}*/
+	//TODO se a quantidade de clientes ativos ainda não foi atingido pode enviar uma nova messagem
+	if(numberClient < 10)
+		scheduleAt(simTime()+exponential(1.0), new cMessage("BuildCDN", 2));
+}
+
+void NetBuilderCDN::buildNetwork(cModule *parent) {
+	nodeid2mod = generateModuleCDN(parent);
+	//TODO Generate Client e fluxo
+	scheduleAt(simTime(), new cMessage("BuildCDN", 2));
+}
+
+
 
