@@ -27,7 +27,7 @@ module CDNNode
         int numUdpApps = default(0);
         string udpAppType = default("n/a");
         string type = default("c");//c - client; r - refletor; s - storage; i - indexador; p - processador
-        string tcpType = default("TCP");  // tcp implementation (e.g. TCP, TCP_old, TCP_NSC)
+        //string tcpType = default("TCP");  // tcp implementation (e.g. TCP, TCP_old, TCP_NSC)
     gates:
         inout pppg[] @labels(PPPFrame-conn);
         inout ethg[] @labels(EtherFrame-conn);

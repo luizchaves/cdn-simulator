@@ -25,7 +25,7 @@ void Reflector::initialize()
 
 void Reflector::handleMessage(cMessage *msg)
 {
-    // TODO - Generated method body
+    // TODO se chegar um solicitação de segmento que não exista cria um cache ou colocar no cache existente
 }
 
 Cache* Reflector::getCache(int cdnId){

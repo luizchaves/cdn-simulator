@@ -187,14 +187,21 @@ $O/src/cdn/content/LruCache.o: src/cdn/content/LruCache.cc \
 $O/src/cdn/message/requestCDN_m.o: src/cdn/message/requestCDN_m.cc \
 	src/cdn/message/requestCDN_m.h
 $O/src/cdn/node/Indexer.o: src/cdn/node/Indexer.cc \
+	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
 	src/cdn/content/VideoSet.h \
+	src/cdn/node/Indexer.h \
+	$(INET_PROJ)/src/base/INETDefs.h \
+	src/cdn/content/Video.h \
+	src/cdn/node/Storage.h \
+	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	src/cdn/node/Reflector.h \
 	src/cdn/content/Segment.h \
-	src/cdn/node/Indexer.h \
+	$(INET_PROJ)/src/networklayer/contract/IPAddressResolver.h \
 	src/cdn/content/LruCache.h \
-	src/cdn/content/Video.h \
-	src/cdn/content/Cache.h \
-	src/cdn/node/Storage.h
+	$(INET_PROJ)/src/networklayer/contract/IPvXAddress.h \
+	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
+	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
+	src/cdn/content/Cache.h
 $O/src/cdn/node/Processor.o: src/cdn/node/Processor.cc \
 	src/cdn/node/Processor.h
 $O/src/cdn/node/Storage.o: src/cdn/node/Storage.cc \

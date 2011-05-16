@@ -6,6 +6,9 @@
 #include <Cache.h>
 #include <VideoSet.h>
 #include <Reflector.h>
+#include <UDPSocket.h>
+#include <UDPControlInfo_m.h>
+#include <IPAddressResolver.h>
 
 class Indexer : public cSimpleModule
 {
@@ -27,6 +30,10 @@ class Indexer : public cSimpleModule
 	double** _refletorToRefletorDistance;
 	double** _storageToRefletorDistance;
 	double** _refletorToClientDistance;
+
+	void bindToPort(int port);
+	void sendToUDP(cPacket *msg,
+			int srcPort, const IPvXAddress& destAddr, int destPort);
 
   protected:
     virtual void initialize(int stage);
