@@ -4,7 +4,7 @@ package src.cdn.node;
 import inet.applications.udpapp.UDPApp;
 
 
-simple Refletor like UDPApp
+simple Reflector like UDPApp
 {
     parameters:
         //int serverPort; // port to listen on

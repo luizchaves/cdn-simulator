@@ -13,26 +13,29 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#include "Refletor.h"
+#ifndef __CDN_REFLECTOR_H_
+#define __CDN_REFLECTOR_H_
 
-Define_Module(Refletor);
+#include <omnetpp.h>
+#include <map>
+#include <vector>
+#include <Cache.h>
+#include <LruCache.h>
 
-void Refletor::initialize()
+/**
+ * TODO - Generated class
+ */
+class Reflector : public cSimpleModule
 {
-	LruCache cache(time(NULL), 1, 1000000000.0, 0);
-	this->_cache.push_back(&cache);
-}
+  public:
+	Cache* getCache(int cdnId);
+	vector<Cache*> getCacheVector();
+  protected:
+    virtual void initialize();
+    virtual void handleMessage(cMessage *msg);
+  private:
+    vector<Cache*> _cache;
 
-void Refletor::handleMessage(cMessage *msg)
-{
-    // TODO - Generated method body
-}
+};
 
-Cache* Refletor::getCache(int cdnId){
-	// TODO fazer a consulta
-	return NULL;
-}
-
-vector<Cache*> Refletor::getCacheVector(){
-	return this->_cache;
-}
+#endif

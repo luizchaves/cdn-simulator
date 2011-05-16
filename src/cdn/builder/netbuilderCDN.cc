@@ -144,7 +144,6 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 			float datarate = -1;
 			datarate = extractDataRatio(tokensEnlace[2].c_str());
 			float delay = -1;
-			//TODO Extract method
 			char metricD[3];
 			sscanf(tokensEnlace[3].c_str(), "%f%c", &delay, metricD);
 			double error = 0;
@@ -281,7 +280,7 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 				// insert in map
 				mapElement->insert(std::make_pair(tokensEnlaces[0], *number + addNumber));
 				EV << "NODE ID " << modName << " " << *number+addNumber << endl;
-				*number++;
+				*number +=1;
 				// connect
 				//EV << tokensEnlaces[0] << " " << tokensEnlaces[1] << " " << tokensEnlaces[2] << " " << tokensEnlaces[3] << tokensEnlaces[4] << endl;
 				long srcnodeid = routersName.find(tokensEnlaces[2].c_str())->second;
@@ -289,7 +288,6 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 				float datarate = -1;
 				float delay = -1;
 				if (tokensEnlaces.size() == 5) {
-					//TODO Extract method
 					char metricD[3];
 					sscanf(tokensEnlaces[4].c_str(), "%f%c", &delay, metricD);
 					datarate = extractDataRatio(tokensEnlaces[3].c_str());
@@ -324,12 +322,12 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 				const char *displayString = "";
 				const char *modtypename = "src.cdn.node.CDNNode";
 				const char *modName;
-				//TODO diferenciar number para elements
 				int *number;
 				int addNumber = 0;
 				std::map<std::string, int> *mapElement;
 				int repeatNumber = 0;
-				sscanf(tokensEnlaces[2].c_str(), "%d", &repeatNumber);
+				char metricD[1];
+				sscanf(tokensEnlaces[2].c_str(), "%c%d", metricD, &repeatNumber);
 				for (int var = 0; var < repeatNumber; ++var) {
 					cModuleType *modtype = cModuleType::get(modtypename);
 					if(!modtype)
@@ -375,25 +373,28 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 					mod->par("numUdpApps").setLongValue(100);
 					std::stringstream numberStream;
 					numberStream << *number;
-					if (mapElement->find(std::string(tokensEnlaces[0].c_str()).append(numberStream.str()).c_str()) != mapElement->end()) {
-						*number++;
+					std::string nameModule = std::string(tokensEnlaces[0].c_str()).append(numberStream.str()).c_str();
+					// Check exist id
+					if (mapElement->find(nameModule) != mapElement->end()) {
+						std::stringstream numberStream2;
+						numberStream2 << *number+1;
+						nameModule = std::string(tokensEnlaces[0].c_str()).append(numberStream2.str()).c_str();
 					}
-					numberStream << *number;
-					mod->setName(std::string(tokensEnlaces[0].c_str()).append(numberStream.str()).c_str());
-					nodeid2mod[*number + addNumber] = mod;
+					mod->setName(nameModule.c_str());
+					nodeid2mod[*number+addNumber] = mod;
 					// read params from the ini file, etc
 					mod->finalizeParameters();
 					// modify display string
 					if(strcmp("", displayString) != 0)
 						mod->setDisplayString(displayString);
 					// insert in map
-					mapElement->insert(std::make_pair(std::string(tokensEnlaces[0].c_str()).append(numberStream.str()).c_str(), *number + addNumber));
+					mapElement->insert(std::make_pair(nameModule, *number+addNumber));
 					EV << "NODE ID " << modName << " " << *number+addNumber << endl;
-					*number++;
+					*number += 1;
 					// connect
 					//TODO escolher roteador FDP
-					//TODO no caso do numero for - diferente
 					//TODO real random
+					//TODO se o caracter for diferente não pode escolher roteadores que já possuam o mesmo elemento
 					int addRouter = uniform(0, numberRouter, (int) dblrand()*1e6);
 					std::map<std::string, int>::iterator itRouter =routersName.begin();
 					for (int var = 0; var < addRouter; ++var) {
@@ -429,6 +430,7 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 
 void NetBuilderCDN::buildNetwork(cModule *parent) {
 	nodeid2mod = generateModuleCDN(parent);
+	//TODO Generate Client e fluxo
 	std::map<long, cModule *>::iterator it;
 	// final touches: buildinside, initialize()
 	for (it = nodeid2mod.begin(); it != nodeid2mod.end(); ++it) {

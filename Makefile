@@ -71,7 +71,7 @@ OBJS = \
     $O/src/cdn/content/LruCache.o \
     $O/src/cdn/content/Segment.o \
     $O/src/cdn/node/Storage.o \
-    $O/src/cdn/node/Refletor.o \
+    $O/src/cdn/node/Reflector.o \
     $O/src/cdn/node/Client.o \
     $O/src/cdn/node/Processor.o \
     $O/src/cdn/node/Indexer.o \
@@ -188,19 +188,10 @@ $O/src/cdn/message/requestCDN_m.o: src/cdn/message/requestCDN_m.cc \
 	src/cdn/message/requestCDN_m.h
 $O/src/cdn/node/Indexer.o: src/cdn/node/Indexer.cc \
 	src/cdn/content/VideoSet.h \
+	src/cdn/node/Reflector.h \
 	src/cdn/content/Segment.h \
 	src/cdn/node/Indexer.h \
 	src/cdn/content/LruCache.h \
-	src/cdn/node/Refletor.h \
-	src/cdn/content/Video.h \
-	src/cdn/content/Cache.h \
-	src/cdn/node/Storage.h
-$O/src/cdn/node/Indexador.o: src/cdn/node/Indexador.cc \
-	src/cdn/content/VideoSet.h \
-	src/cdn/node/Indexador.h \
-	src/cdn/content/Segment.h \
-	src/cdn/content/LruCache.h \
-	src/cdn/node/Refletor.h \
 	src/cdn/content/Video.h \
 	src/cdn/content/Cache.h \
 	src/cdn/node/Storage.h
@@ -211,14 +202,6 @@ $O/src/cdn/node/Storage.o: src/cdn/node/Storage.cc \
 	src/cdn/content/Segment.h \
 	src/cdn/content/Video.h \
 	src/cdn/node/Storage.h
-$O/src/cdn/node/Processador.o: src/cdn/node/Processador.cc \
-	src/cdn/node/Processador.h
-$O/src/cdn/node/Refletor.o: src/cdn/node/Refletor.cc \
-	src/cdn/content/Segment.h \
-	src/cdn/content/LruCache.h \
-	src/cdn/node/Refletor.h \
-	src/cdn/content/Video.h \
-	src/cdn/content/Cache.h
 $O/src/cdn/node/Client.o: src/cdn/node/Client.cc \
 	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
@@ -229,4 +212,10 @@ $O/src/cdn/node/Client.o: src/cdn/node/Client.cc \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
 	src/cdn/message/requestCDN_m.h \
 	src/cdn/node/Client.h
+$O/src/cdn/node/Reflector.o: src/cdn/node/Reflector.cc \
+	src/cdn/node/Reflector.h \
+	src/cdn/content/Segment.h \
+	src/cdn/content/LruCache.h \
+	src/cdn/content/Video.h \
+	src/cdn/content/Cache.h
 

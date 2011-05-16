@@ -21,6 +21,7 @@ network Dynamic
         builder: NetBuilderCDN {
             routersFile = "/home/lucachaves/program/omnetpp-4.1/samples/CDN/src/cdn/builder/configFile/routersRNP.txt";
         	elementsFile = "/home/lucachaves/program/omnetpp-4.1/samples/CDN/src/cdn/builder/configFile/elements.txt";
+        	clientsFile = "/home/lucachaves/program/omnetpp-4.1/samples/CDN/src/cdn/builder/configFile/clients.txt";
         }
 }
 
