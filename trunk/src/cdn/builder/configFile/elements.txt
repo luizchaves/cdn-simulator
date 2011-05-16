@@ -1,9 +1,18 @@
 # Default Connection
 LOCAL_CONNECTIVITY 100MBPS,10MS
 # Connections
-ST01,STORAGE,PB,1GBPS,20MS
-ST02,STORAGE,CE,100MBPS
-IX01,INDEXER,PE
-IX,INDEXER,2
+ST1,STORAGE,PB,1GBPS,20MS
+ST2,STORAGE,CE,100MBPS
+IX1,INDEXER,PE
+IX4,INDEXER,RN
+IX,INDEXER,-6
 RF,REFLECTOR,1
 PR,PROCESSOR,1
+# Define PDF in random link
+# Define Content PDF in Storage e Reflector
+# Cache Level, fixed
+# Replacement Content Cache
+# Selection Storage
+# Number of Content
+# Video's Lenght
+# Video's Bitrate

@@ -9,4 +9,5 @@ simple NetBuilderCDN
         @display("i=block/cogwheel_s");
         string routersFile;
         string elementsFile;
+        string clientsFile;
 }

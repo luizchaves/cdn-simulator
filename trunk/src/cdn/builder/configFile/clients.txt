@@ -1,0 +1,7 @@
+# Define active client, fixed
+# Zipf PDF
+# Client's Permanence
+# Gap's Request
+# Video's Request
+# Video's Start
+# Selection Reflector

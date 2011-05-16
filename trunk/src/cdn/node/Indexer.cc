@@ -42,7 +42,7 @@ void Indexer::initialize(int stage) {
 					this->refletor.push_back(((cModule*) iter()));
 					//cdnCacheContentMap
 					vector<Cache*> cacheVector =
-							((Refletor*) ((cModule*) iter())->getSubmodule(
+							((Reflector*) ((cModule*) iter())->getSubmodule(
 									"udpApp", 0))->getCacheVector();
 					for (vector<Cache*>::iterator it =
 							cacheVector.begin(); it < cacheVector.end(); it++) {
