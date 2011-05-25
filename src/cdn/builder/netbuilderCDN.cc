@@ -5,6 +5,7 @@
 #include <sstream>
 #include <omnetpp.h>
 #include <crng.h>
+#include <NetConfigurator.h>
 
 /**
  * Builds a network dynamically, with the topology coming from a
@@ -188,7 +189,6 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 				std::map<std::string,int>::iterator itRoutersAttraction;
 				itRoutersAttraction = routersAttraction.find(itRoutersName->first);
 				cModule *mod = nodeid2mod[itRoutersName->second];
-				std::cout << "Atraction " << mod->getFullPath() << " " << mod->gateCount()/2 << endl;
 				if(itRoutersAttraction == routersAttraction.end()){
 					routersAttraction.insert(std::make_pair(itRoutersName->first, mod->gateCount()/2));
 				}
@@ -515,20 +515,6 @@ void NetBuilderCDN::generateClientCDN(cModule *parent, std::map<long, cModule*> 
 		if (mod->callInitialize(stage))
 			more = true;
 	}
-	//TODO Testar a inclusão do flat network do inet
-	/*FlatNetworkConfigurator netConfig;
-	netConfig.par("netmask").setStringValue("255.255.0.0");
-	netConfig.par("networkAddress").setStringValue("192.168.0.0");
-	// read params from the ini file, etc
-	netConfig.finalizeParameters();
-	netConfig.buildInside();
-	// multi-stage init
-	more = true;
-	for (int stage = 0; more; stage++) {
-		more = false;
-		if (netConfig.callInitialize(stage))
-			more = true;
-	}*/
 	//TODO se a quantidade de clientes ativos ainda não foi atingido pode enviar uma nova messagem
 	if(numberClient < 10)
 		scheduleAt(simTime()+exponential(1.0), new cMessage("BuildCDN", 2));
@@ -537,6 +523,12 @@ void NetBuilderCDN::generateClientCDN(cModule *parent, std::map<long, cModule*> 
 void NetBuilderCDN::buildNetwork(cModule *parent) {
 	nodeid2mod = generateModuleCDN(parent);
 	//TODO Generate Client e fluxo
+	for (cModule::SubmoduleIterator iter(getParentModule()); !iter.end(); iter++) {
+		if (strcmp(iter()->getFullName(), "netConfigurator") == 0) {
+			NetConfigurator* flatNet = (NetConfigurator*)iter();
+			flatNet->configNet();
+		}
+	}
 	scheduleAt(simTime(), new cMessage("BuildCDN", 2));
 }
 
