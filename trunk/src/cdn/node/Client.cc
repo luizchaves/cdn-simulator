@@ -19,7 +19,15 @@ Define_Module(Client);
 
 void Client::initialize()
 {
-	scheduleAt(0, new cMessage());
+	for (cModule::SubmoduleIterator iter(getParentModule()->getParentModule()); !iter.end(); iter++) {
+		std::cout << iter()->getFullName() << endl;
+		if (strcmp(iter()->getFullName(), "netConfigurator") == 0) {
+			NetConfigurator* flatNet = (NetConfigurator*)iter();
+			//Alterar cliente em especifico e não toda rede
+			flatNet->configNet();
+		}
+	}
+	scheduleAt(simTime(), new cMessage());
 }
 
 void Client::handleMessage(cMessage *msg)
@@ -28,7 +36,6 @@ void Client::handleMessage(cMessage *msg)
 		error("This module does not process messages.");
 
 	delete msg;
-
 
 	cModule* moduleIndexer;
 	for (cModule::SubmoduleIterator iter(
@@ -41,11 +48,11 @@ void Client::handleMessage(cMessage *msg)
 			}
 		}
 	}
-	EV << "Module Name " << moduleIndexer->getFullName() << endl;
+	std::cout << "Module Name " << moduleIndexer->getFullName() << endl;
 	bindToPort(1000);
 	cPacket *newMsg = new cPacket();
 	IPvXAddress serverAddress = IPAddressResolver().addressOf(moduleIndexer);
-	EV << "Requesting video stream from " << serverAddress << ":" << 1000 << "\n";
+	std::cout << "Requesting video stream from " << serverAddress << ":" << 1000 << "\n";
 	sendToUDP(newMsg, 1000, serverAddress, 1000);
 }
 

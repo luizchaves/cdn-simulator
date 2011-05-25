@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for CDN
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -O out -I../inet/src/networklayer/rsvp_te -I../inet/src/networklayer/common -I../inet/src/networklayer/icmpv6 -I../inet/src/transport/tcp -I../inet/src/networklayer/mpls -I../inet/src/networklayer/ted -I../inet/src/networklayer/contract -I../inet/src/util -I../inet/src/transport/contract -I../inet/src/linklayer/mfcore -I../inet/src/networklayer/ldp -I../inet/src/networklayer/ipv4 -I../inet/src/base -I../inet/src/util/headerserializers -I../inet/src/networklayer/ipv6 -I../inet/src/transport/sctp -I../inet/src/world -I../inet/src/applications/pingapp -I../inet/src/linklayer/contract -I../inet/src/networklayer/arp -I../inet/src/transport/udp -L../inet/out/$(CONFIGNAME)/src -linet -KINET_PROJ=../inet
+#  opp_makemake -f --deep -O out -I../inet/src/networklayer/ipv4 -I../inet/src/networklayer/common -I../inet/src/networklayer/rsvp_te -I../inet/src/networklayer/autorouting -I../inet/src/networklayer/icmpv6 -I../inet/src/transport/tcp -I../inet/src/networklayer/mpls -I../inet/src/base -I../inet/src/networklayer/ted -I../inet/src/util/headerserializers -I../inet/src/networklayer/contract -I../inet/src/util -I../inet/src/transport/contract -I../inet/src/linklayer/mfcore -I../inet/src/transport/sctp -I../inet/src/networklayer/ipv6 -I../inet/src/world -I../inet/src/applications/pingapp -I../inet/src/linklayer/contract -I../inet/src/networklayer/arp -I../inet/src/networklayer/ldp -I../inet/src/transport/udp -L../inet/out/$(CONFIGNAME)/src -linet -KINET_PROJ=../inet
 #
 
 # Name of target to be created (-o option)
@@ -15,26 +15,27 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(CMDENV_LIBS)
 
 # C++ include paths (with -I)
 INCLUDE_PATH = \
-    -I../inet/src/networklayer/rsvp_te \
+    -I../inet/src/networklayer/ipv4 \
     -I../inet/src/networklayer/common \
+    -I../inet/src/networklayer/rsvp_te \
+    -I../inet/src/networklayer/autorouting \
     -I../inet/src/networklayer/icmpv6 \
     -I../inet/src/transport/tcp \
     -I../inet/src/networklayer/mpls \
+    -I../inet/src/base \
     -I../inet/src/networklayer/ted \
+    -I../inet/src/util/headerserializers \
     -I../inet/src/networklayer/contract \
     -I../inet/src/util \
     -I../inet/src/transport/contract \
     -I../inet/src/linklayer/mfcore \
-    -I../inet/src/networklayer/ldp \
-    -I../inet/src/networklayer/ipv4 \
-    -I../inet/src/base \
-    -I../inet/src/util/headerserializers \
-    -I../inet/src/networklayer/ipv6 \
     -I../inet/src/transport/sctp \
+    -I../inet/src/networklayer/ipv6 \
     -I../inet/src/world \
     -I../inet/src/applications/pingapp \
     -I../inet/src/linklayer/contract \
     -I../inet/src/networklayer/arp \
+    -I../inet/src/networklayer/ldp \
     -I../inet/src/transport/udp \
     -I. \
     -Isrc \
@@ -64,6 +65,7 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 # Object files for local .cc and .msg files
 OBJS = \
     $O/src/cdn/builder/netbuilderCDN.o \
+    $O/src/cdn/builder/NetConfigurator.o \
     $O/src/cdn/builder/old/netbuilder.o \
     $O/src/cdn/content/Video.o \
     $O/src/cdn/content/Cache.o \
@@ -163,7 +165,16 @@ depend:
 	$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc src/*.cc src/cdn/*.cc src/cdn/builder/*.cc src/cdn/builder/configFile/*.cc src/cdn/builder/old/*.cc src/cdn/content/*.cc src/cdn/execption/*.cc src/cdn/message/*.cc src/cdn/networks/*.cc src/cdn/node/*.cc src/cdn/results/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
-$O/src/cdn/builder/netbuilderCDN.o: src/cdn/builder/netbuilderCDN.cc
+$O/src/cdn/builder/netbuilderCDN.o: src/cdn/builder/netbuilderCDN.cc \
+	src/cdn/builder/NetConfigurator.h \
+	$(INET_PROJ)/src/base/INETDefs.h \
+	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
+	$(INET_PROJ)/src/networklayer/autorouting/FlatNetworkConfigurator.h
+$O/src/cdn/builder/NetConfigurator.o: src/cdn/builder/NetConfigurator.cc \
+	src/cdn/builder/NetConfigurator.h \
+	$(INET_PROJ)/src/base/INETDefs.h \
+	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
+	$(INET_PROJ)/src/networklayer/autorouting/FlatNetworkConfigurator.h
 $O/src/cdn/builder/old/netbuilder.o: src/cdn/builder/old/netbuilder.cc
 $O/src/cdn/content/Segment.o: src/cdn/content/Segment.cc \
 	src/cdn/content/Segment.h
@@ -212,12 +223,14 @@ $O/src/cdn/node/Storage.o: src/cdn/node/Storage.cc \
 $O/src/cdn/node/Client.o: src/cdn/node/Client.cc \
 	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
 	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
+	src/cdn/builder/NetConfigurator.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddressResolver.h \
 	$(INET_PROJ)/src/networklayer/contract/IPvXAddress.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
 	src/cdn/message/requestCDN_m.h \
+	$(INET_PROJ)/src/networklayer/autorouting/FlatNetworkConfigurator.h \
 	src/cdn/node/Client.h
 $O/src/cdn/node/Reflector.o: src/cdn/node/Reflector.cc \
 	src/cdn/node/Reflector.h \
