@@ -15,6 +15,8 @@ class NetBuilderCDN: public cSimpleModule {
 protected:
 	void connect(cGate *src, cGate *dest, double delay, double ber,
 			double datarate);
+	void connect(cModule *src, cModule *dest, double delay, double ber,
+				double datarate);
 	void buildNetwork(cModule *parent);
 	void connectClient(cModule *parent);
 	virtual void initialize();
@@ -29,7 +31,7 @@ protected:
 	int numberClient;
 private:
 	std::map<long, cModule*> generateModuleCDN(cModule *parent);
-	void generateClientCDN(cModule *parent, std::map<long, cModule*> nodeid2mod);
+	void generateClientCDN(cModule *parent);
 	void generateConnectionCDNRandom(std::map<long, cModule*> & nodeid2mod);
     float extractDataRatio(std::string valueEnlace);
 };
@@ -53,7 +55,7 @@ void NetBuilderCDN::handleMessage(cMessage *msg) {
 	if(msg->getKind() == 1)
 		buildNetwork(getParentModule());
 	if(msg->getKind() == 2)
-		generateClientCDN(getParentModule(), nodeid2mod);
+		generateClientCDN(getParentModule());
 }
 
 void NetBuilderCDN::connect(cGate *src, cGate *dest, double delay, double ber,
@@ -69,6 +71,21 @@ void NetBuilderCDN::connect(cGate *src, cGate *dest, double delay, double ber,
 			channel->setDatarate(datarate);
 	}
 	src->connectTo(dest, channel);
+}
+
+void NetBuilderCDN::connect(cModule *src, cModule *dest, double delay, double ber,
+		double datarate) {
+	cDatarateChannel *channel = NULL;
+	if (delay > 0 || ber > 0 || datarate > 0) {
+		channel = cDatarateChannel::create("channel");
+		if (delay > 0)
+			channel->setDelay(delay);
+		if (ber > 0)
+			channel->setBitErrorRate(ber);
+		if (datarate > 0)
+			channel->setDatarate(datarate);
+	}
+	src->gate("pppg")->connectTo(dest->gate("pppg"), channel);
 }
 
 float NetBuilderCDN::extractDataRatio(std::string valueEnlace)
@@ -446,6 +463,73 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 				}
 			}
 	}
+//	std::map<long, cModule *>::iterator it;
+//	// final touches: buildinside, initialize()
+//	for (it = nodeid2mod.begin(); it != nodeid2mod.end(); ++it) {
+//		cModule *mod = it->second;
+//		mod->buildInside();
+//	}
+//
+//	// multi-stage init
+//	bool more = true;
+//	for (int stage = 0; more; stage++) {
+//		more = false;
+//		for (it = nodeid2mod.begin(); it != nodeid2mod.end(); ++it) {
+//			cModule *mod = it->second;
+//			if (mod->callInitialize(stage))
+//				more = true;
+//		}
+//	}
+	return nodeid2mod;
+}
+
+void NetBuilderCDN::generateClientCDN(cModule *parent) {
+	cModuleType *modtype = cModuleType::get("src.cdn.node.CDNNode");
+	if(!modtype){
+		throw cRuntimeError("module type `%s' for node `%d' not found", "src.cdn.node.CDNNode", numberClient);
+	}
+
+	std::stringstream number;
+	number << numberClient;
+
+	cModule *mod = modtype->create("client", parent);
+	mod->setName(std::string("CL").append(number.str()).c_str());
+	mod->par("numUdpApps").setLongValue(1);
+	mod->par("udpAppType").setStringValue("Client");
+	mod->par("type").setStringValue("c");
+
+	std::cout << "Numero cliente " << numberRouter+numberStorage+numberIndexer+numberReflector+numberProcessor+numberClient << endl;
+	nodeid2mod[numberRouter+numberStorage+numberIndexer+numberReflector+numberProcessor+numberClient] = mod;
+	// read params from the ini file, etc
+	mod->finalizeParameters();
+
+	long srcnodeid = (long) uniform(0, numberRouter, (int) dblrand()*1e6);
+	long destnodeid = numberRouter+numberStorage+numberIndexer+numberReflector+numberProcessor+numberClient;
+	double datarate = 100000000;
+	double delay = 0.01;
+	double error = 0;
+	std::cout << "Enlace " << srcnodeid << ", " << destnodeid << ", " << datarate << ", " << delay << endl;
+	if(nodeid2mod.find(srcnodeid) == nodeid2mod.end())
+		throw cRuntimeError("wrong line in connections file: node with id=%ld not found", srcnodeid);
+
+	if(nodeid2mod.find(destnodeid) == nodeid2mod.end())
+		throw cRuntimeError("wrong line in connections file: node with id=%ld not found", destnodeid);
+
+	cModule *srcmod = nodeid2mod[srcnodeid];
+	std::cout << "Connecting " << srcmod->getFullName();
+	cModule *destmod = nodeid2mod[destnodeid];
+	std::cout << " to " << destmod->getFullName() << endl;
+	cGate *srcIn, *srcOut, *destIn, *destOut;
+	srcmod->getOrCreateFirstUnconnectedGatePair("pppg", false, true, srcIn, srcOut);
+	destmod->getOrCreateFirstUnconnectedGatePair("pppg", false, true, destIn, destOut);
+	// connect
+	connect(srcOut, destIn, delay, error, datarate);
+	connect(destOut, srcIn, delay, error, datarate);
+	numberClient++;
+
+//	srcmod->buildInside();
+//	destmod->buildInside();
+
 	std::map<long, cModule *>::iterator it;
 	// final touches: buildinside, initialize()
 	for (it = nodeid2mod.begin(); it != nodeid2mod.end(); ++it) {
@@ -463,72 +547,27 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 				more = true;
 		}
 	}
-	return nodeid2mod;
-}
-
-void NetBuilderCDN::generateClientCDN(cModule *parent, std::map<long, cModule*> nodeid2mod) {
-	cModuleType *modtype = cModuleType::get("src.cdn.node.CDNNode");
-	if(!modtype){
-		throw cRuntimeError("module type `%s' for node `%d' not found", "src.cdn.node.CDNNode", numberClient);
-	}
-
-	std::stringstream number;
-	number << numberClient;
-
-	cModule *mod = modtype->create("client", parent);
-	mod->setName(std::string("CL").append(number.str()).c_str());
-	mod->par("numUdpApps").setLongValue(1);
-	mod->par("udpAppType").setStringValue("Client");
-	mod->par("type").setStringValue("c");
-
-	nodeid2mod[numberClient] = mod;
-	// read params from the ini file, etc
-	mod->finalizeParameters();
-
-	long srcnodeid = numberClient;
-	long destnodeid = (long) uniform(0, numberRouter, (int) dblrand()*1e6);
-	double datarate = 1e6;
-	double delay = 0.01;
-	double error = 0;
-	EV << srcnodeid << " " << destnodeid << endl;
-	if(nodeid2mod.find(srcnodeid) == nodeid2mod.end())
-		throw cRuntimeError("wrong line in connections file: node with id=%ld not found", srcnodeid);
-
-	if(nodeid2mod.find(destnodeid) == nodeid2mod.end())
-		throw cRuntimeError("wrong line in connections file: node with id=%ld not found", destnodeid);
-
-	cModule *srcmod = nodeid2mod[srcnodeid];
-	cModule *destmod = nodeid2mod[destnodeid];
-	cGate *srcIn, *srcOut, *destIn, *destOut;
-	srcmod->getOrCreateFirstUnconnectedGatePair("pppg", false, true, srcIn, srcOut);
-	destmod->getOrCreateFirstUnconnectedGatePair("pppg", false, true, destIn, destOut);
-	// connect
-	connect(srcOut, destIn, delay, error, datarate);
-	connect(destOut, srcIn, delay, error, datarate);
-	numberClient++;
-	// final touches: buildinside, initialize()
-	mod->buildInside();
-	// multi-stage init
-	bool more = true;
-	for (int stage = 0; more; stage++) {
-		more = false;
-		if (mod->callInitialize(stage))
-			more = true;
+	for (cModule::SubmoduleIterator iter(getParentModule()); !iter.end(); iter++) {
+		std::cout << iter()->getFullName() << endl;
+		if (strcmp(iter()->getFullName(), "netConfigurator") == 0) {
+			NetConfigurator* flatNet = (NetConfigurator*)iter();
+			flatNet->configNode(mod);
+		}
 	}
 	//TODO se a quantidade de clientes ativos ainda não foi atingido pode enviar uma nova messagem
-	if(numberClient < 10)
+	if(numberClient < 1)
 		scheduleAt(simTime()+exponential(1.0), new cMessage("BuildCDN", 2));
 }
 
 void NetBuilderCDN::buildNetwork(cModule *parent) {
 	nodeid2mod = generateModuleCDN(parent);
 	//TODO Generate Client e fluxo
-	for (cModule::SubmoduleIterator iter(getParentModule()); !iter.end(); iter++) {
-		if (strcmp(iter()->getFullName(), "netConfigurator") == 0) {
-			NetConfigurator* flatNet = (NetConfigurator*)iter();
-			flatNet->configNet();
-		}
-	}
+//	for (cModule::SubmoduleIterator iter(getParentModule()); !iter.end(); iter++) {
+//		if (strcmp(iter()->getFullName(), "netConfigurator") == 0) {
+//			NetConfigurator* flatNet = (NetConfigurator*)iter();
+//			flatNet->configNet();
+//		}
+//	}
 	scheduleAt(simTime(), new cMessage("BuildCDN", 2));
 }
 

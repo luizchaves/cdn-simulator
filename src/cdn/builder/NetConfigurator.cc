@@ -50,12 +50,17 @@ void NetConfigurator::configNet(){
 	setDisplayString(topo, nodeInfoNet);
 }
 
-void NetConfigurator::configNode(){
+void NetConfigurator::configNode(cModule* mod){
+	//TODO Que erro é esse!!!!!!!!!!!!!!
 	cTopology topo("topo");
-	extractTopology(topo, *nodeInfo);
-	assignAddresses(topo, *nodeInfo);
-	addDefaultRoutes(topo, *nodeInfo);
-	fillRoutingTables(topo, *nodeInfo);
-	setDisplayString(topo, *nodeInfo);
+	NodeInfoVector nodeInfoNet;
+	extractTopology(topo, nodeInfoNet);
+	assignAddresses(topo, nodeInfoNet);
+	addDefaultRoutes(topo, nodeInfoNet);
+	//TODO não repetir
+	fillRoutingTables(topo, nodeInfoNet);
+	setDisplayString(topo, nodeInfoNet);
+
+
 
 }

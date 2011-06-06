@@ -19,14 +19,6 @@ Define_Module(Client);
 
 void Client::initialize()
 {
-	for (cModule::SubmoduleIterator iter(getParentModule()->getParentModule()); !iter.end(); iter++) {
-		std::cout << iter()->getFullName() << endl;
-		if (strcmp(iter()->getFullName(), "netConfigurator") == 0) {
-			NetConfigurator* flatNet = (NetConfigurator*)iter();
-			//Alterar cliente em especifico e não toda rede
-			flatNet->configNet();
-		}
-	}
 	scheduleAt(simTime(), new cMessage());
 }
 
