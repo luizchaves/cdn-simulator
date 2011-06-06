@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>CDN</name>
+	<name>cdn-simulator</name>
 	<comment></comment>
 	<projects>
-		<project>inet</project>
+		<project>inet_old</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

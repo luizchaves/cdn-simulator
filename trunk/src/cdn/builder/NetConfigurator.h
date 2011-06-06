@@ -17,6 +17,11 @@
 #define NETCONFIGURATOR_H_
 
 #include <FlatNetworkConfigurator.h>
+#include <IPAddressResolver.h>
+#include <InterfaceEntry.h>
+#include <InterfaceTable.h>
+#include <IRoutingTable.h>
+#include <IPRoute.h>
 
 class NetConfigurator : public FlatNetworkConfigurator{
 
@@ -26,7 +31,7 @@ public:
 	NetConfigurator();
 	virtual ~NetConfigurator();
 	void configNet();
-	void configNode();
+	void configNode(cModule* mod);
 };
 
 #endif /* NETCONFIGURATOR_H_ */

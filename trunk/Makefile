@@ -1,12 +1,12 @@
 #
-# OMNeT++/OMNEST Makefile for CDN
+# OMNeT++/OMNEST Makefile for cdn-simulator
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -O out -I../inet/src/networklayer/ipv4 -I../inet/src/networklayer/common -I../inet/src/networklayer/rsvp_te -I../inet/src/networklayer/autorouting -I../inet/src/networklayer/icmpv6 -I../inet/src/transport/tcp -I../inet/src/networklayer/mpls -I../inet/src/base -I../inet/src/networklayer/ted -I../inet/src/util/headerserializers -I../inet/src/networklayer/contract -I../inet/src/util -I../inet/src/transport/contract -I../inet/src/linklayer/mfcore -I../inet/src/transport/sctp -I../inet/src/networklayer/ipv6 -I../inet/src/world -I../inet/src/applications/pingapp -I../inet/src/linklayer/contract -I../inet/src/networklayer/arp -I../inet/src/networklayer/ldp -I../inet/src/transport/udp -L../inet/out/$(CONFIGNAME)/src -linet -KINET_PROJ=../inet
+#  opp_makemake -f --deep -O out -I../inet_old/src/transport/contract -I../inet_old/src/transport/udp -I../inet_old/src/networklayer/ipv6 -I../inet_old/src/networklayer/icmpv6 -I../inet_old/src/util -I../inet_old/src/networklayer/ipv4 -I../inet_old/src/base -I../inet_old/src/networklayer/arp -I../inet_old/src/networklayer/autorouting -I../inet_old/src/applications/pingapp -I../inet_old/src/networklayer/contract -I../inet_old/src/networklayer/common -I../inet_old/src/util/headerserializers -I../inet_old/src/networklayer/mpls -I../inet_old/src/networklayer/rsvp_te -I../inet_old/src/linklayer/mfcore -I../inet_old/src/linklayer/contract -I../inet_old/src/transport/sctp -I../inet_old/src/networklayer/ldp -I../inet_old/src/networklayer/ted -I../inet_old/src/transport/tcp -I../inet_old/src/world -L../inet_old/out/$(CONFIGNAME)/src -linet -KINET_OLD_PROJ=../inet_old
 #
 
 # Name of target to be created (-o option)
-TARGET = CDN$(EXE_SUFFIX)
+TARGET = cdn-simulator$(EXE_SUFFIX)
 
 # User interface (uncomment one) (-u option)
 USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(CMDENV_LIBS)
@@ -15,28 +15,28 @@ USERIF_LIBS = $(ALL_ENV_LIBS) # that is, $(TKENV_LIBS) $(CMDENV_LIBS)
 
 # C++ include paths (with -I)
 INCLUDE_PATH = \
-    -I../inet/src/networklayer/ipv4 \
-    -I../inet/src/networklayer/common \
-    -I../inet/src/networklayer/rsvp_te \
-    -I../inet/src/networklayer/autorouting \
-    -I../inet/src/networklayer/icmpv6 \
-    -I../inet/src/transport/tcp \
-    -I../inet/src/networklayer/mpls \
-    -I../inet/src/base \
-    -I../inet/src/networklayer/ted \
-    -I../inet/src/util/headerserializers \
-    -I../inet/src/networklayer/contract \
-    -I../inet/src/util \
-    -I../inet/src/transport/contract \
-    -I../inet/src/linklayer/mfcore \
-    -I../inet/src/transport/sctp \
-    -I../inet/src/networklayer/ipv6 \
-    -I../inet/src/world \
-    -I../inet/src/applications/pingapp \
-    -I../inet/src/linklayer/contract \
-    -I../inet/src/networklayer/arp \
-    -I../inet/src/networklayer/ldp \
-    -I../inet/src/transport/udp \
+    -I../inet_old/src/transport/contract \
+    -I../inet_old/src/transport/udp \
+    -I../inet_old/src/networklayer/ipv6 \
+    -I../inet_old/src/networklayer/icmpv6 \
+    -I../inet_old/src/util \
+    -I../inet_old/src/networklayer/ipv4 \
+    -I../inet_old/src/base \
+    -I../inet_old/src/networklayer/arp \
+    -I../inet_old/src/networklayer/autorouting \
+    -I../inet_old/src/applications/pingapp \
+    -I../inet_old/src/networklayer/contract \
+    -I../inet_old/src/networklayer/common \
+    -I../inet_old/src/util/headerserializers \
+    -I../inet_old/src/networklayer/mpls \
+    -I../inet_old/src/networklayer/rsvp_te \
+    -I../inet_old/src/linklayer/mfcore \
+    -I../inet_old/src/linklayer/contract \
+    -I../inet_old/src/transport/sctp \
+    -I../inet_old/src/networklayer/ldp \
+    -I../inet_old/src/networklayer/ted \
+    -I../inet_old/src/transport/tcp \
+    -I../inet_old/src/world \
     -I. \
     -Isrc \
     -Isrc/cdn \
@@ -54,8 +54,8 @@ INCLUDE_PATH = \
 EXTRA_OBJS =
 
 # Additional libraries (-L, -l options)
-LIBS = -L../inet/out/$(CONFIGNAME)/src  -linet
-LIBS += -Wl,-rpath,`abspath ../inet/out/$(CONFIGNAME)/src`
+LIBS = -L../inet_old/out/$(CONFIGNAME)/src  -linet
+LIBS += -Wl,-rpath,`abspath ../inet_old/out/$(CONFIGNAME)/src`
 
 # Output directory
 PROJECT_OUTPUT_DIR = out
@@ -64,19 +64,19 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 
 # Object files for local .cc and .msg files
 OBJS = \
-    $O/src/cdn/builder/netbuilderCDN.o \
     $O/src/cdn/builder/NetConfigurator.o \
+    $O/src/cdn/builder/netbuilderCDN.o \
     $O/src/cdn/builder/old/netbuilder.o \
-    $O/src/cdn/content/Video.o \
-    $O/src/cdn/content/Cache.o \
-    $O/src/cdn/content/VideoSet.o \
-    $O/src/cdn/content/LruCache.o \
     $O/src/cdn/content/Segment.o \
+    $O/src/cdn/content/VideoSet.o \
+    $O/src/cdn/content/Cache.o \
+    $O/src/cdn/content/LruCache.o \
+    $O/src/cdn/content/Video.o \
     $O/src/cdn/node/Storage.o \
-    $O/src/cdn/node/Reflector.o \
     $O/src/cdn/node/Client.o \
     $O/src/cdn/node/Processor.o \
     $O/src/cdn/node/Indexer.o \
+    $O/src/cdn/node/Reflector.o \
     $O/src/cdn/message/requestCDN_m.o
 
 # Message files
@@ -84,7 +84,7 @@ MSGFILES = \
     src/cdn/message/requestCDN.msg
 
 # Other makefile variables (-K)
-INET_PROJ=../inet
+INET_OLD_PROJ=../inet_old
 
 #------------------------------------------------------------------------------
 
@@ -144,7 +144,7 @@ msgheaders: $(MSGFILES:.msg=_m.h)
 
 clean:
 	-rm -rf $O
-	-rm -f CDN CDN.exe libCDN.so libCDN.a libCDN.dll libCDN.dylib
+	-rm -f cdn-simulator cdn-simulator.exe libcdn-simulator.so libcdn-simulator.a libcdn-simulator.dll libcdn-simulator.dylib
 	-rm -f ./*_m.cc ./*_m.h
 	-rm -f src/*_m.cc src/*_m.h
 	-rm -f src/cdn/*_m.cc src/cdn/*_m.h
@@ -166,76 +166,115 @@ depend:
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/src/cdn/builder/netbuilderCDN.o: src/cdn/builder/netbuilderCDN.cc \
+	$(INET_OLD_PROJ)/src/networklayer/contract/IPAddressResolver.h \
+	$(INET_OLD_PROJ)/src/networklayer/contract/IPv6Address.h \
+	$(INET_OLD_PROJ)/src/linklayer/contract/MACAddress.h \
+	$(INET_OLD_PROJ)/src/networklayer/common/InterfaceTable.h \
+	$(INET_OLD_PROJ)/src/base/ModuleAccess.h \
 	src/cdn/builder/NetConfigurator.h \
-	$(INET_PROJ)/src/base/INETDefs.h \
-	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
-	$(INET_PROJ)/src/networklayer/autorouting/FlatNetworkConfigurator.h
+	$(INET_OLD_PROJ)/src/networklayer/autorouting/FlatNetworkConfigurator.h \
+	$(INET_OLD_PROJ)/src/networklayer/ipv4/IPRoute.h \
+	$(INET_OLD_PROJ)/src/networklayer/contract/IPvXAddress.h \
+	$(INET_OLD_PROJ)/src/networklayer/ipv4/IRoutingTable.h \
+	$(INET_OLD_PROJ)/src/networklayer/contract/IPAddress.h \
+	$(INET_OLD_PROJ)/src/base/NotifierConsts.h \
+	$(INET_OLD_PROJ)/src/networklayer/common/InterfaceToken.h \
+	$(INET_OLD_PROJ)/src/networklayer/common/InterfaceEntry.h \
+	$(INET_OLD_PROJ)/src/networklayer/common/IInterfaceTable.h \
+	$(INET_OLD_PROJ)/src/base/INotifiable.h \
+	$(INET_OLD_PROJ)/src/base/NotificationBoard.h \
+	$(INET_OLD_PROJ)/src/base/INETDefs.h
 $O/src/cdn/builder/NetConfigurator.o: src/cdn/builder/NetConfigurator.cc \
+	$(INET_OLD_PROJ)/src/networklayer/contract/IPAddressResolver.h \
+	$(INET_OLD_PROJ)/src/networklayer/contract/IPv6Address.h \
+	$(INET_OLD_PROJ)/src/linklayer/contract/MACAddress.h \
+	$(INET_OLD_PROJ)/src/networklayer/common/InterfaceTable.h \
+	$(INET_OLD_PROJ)/src/base/ModuleAccess.h \
 	src/cdn/builder/NetConfigurator.h \
-	$(INET_PROJ)/src/base/INETDefs.h \
-	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
-	$(INET_PROJ)/src/networklayer/autorouting/FlatNetworkConfigurator.h
+	$(INET_OLD_PROJ)/src/networklayer/autorouting/FlatNetworkConfigurator.h \
+	$(INET_OLD_PROJ)/src/networklayer/ipv4/IPRoute.h \
+	$(INET_OLD_PROJ)/src/networklayer/contract/IPvXAddress.h \
+	$(INET_OLD_PROJ)/src/networklayer/ipv4/IRoutingTable.h \
+	$(INET_OLD_PROJ)/src/networklayer/contract/IPAddress.h \
+	$(INET_OLD_PROJ)/src/base/NotifierConsts.h \
+	$(INET_OLD_PROJ)/src/networklayer/common/InterfaceToken.h \
+	$(INET_OLD_PROJ)/src/networklayer/common/InterfaceEntry.h \
+	$(INET_OLD_PROJ)/src/networklayer/common/IInterfaceTable.h \
+	$(INET_OLD_PROJ)/src/base/INotifiable.h \
+	$(INET_OLD_PROJ)/src/base/NotificationBoard.h \
+	$(INET_OLD_PROJ)/src/base/INETDefs.h
 $O/src/cdn/builder/old/netbuilder.o: src/cdn/builder/old/netbuilder.cc
-$O/src/cdn/content/Segment.o: src/cdn/content/Segment.cc \
-	src/cdn/content/Segment.h
 $O/src/cdn/content/Video.o: src/cdn/content/Video.cc \
-	src/cdn/content/Segment.h \
-	src/cdn/content/Video.h
-$O/src/cdn/content/Cache.o: src/cdn/content/Cache.cc \
-	src/cdn/content/Segment.h \
 	src/cdn/content/Video.h \
-	src/cdn/content/Cache.h
-$O/src/cdn/content/VideoSet.o: src/cdn/content/VideoSet.cc \
-	src/cdn/content/VideoSet.h \
-	src/cdn/content/Segment.h \
-	src/cdn/content/Video.h
+	src/cdn/content/Segment.h
+$O/src/cdn/content/Cache.o: src/cdn/content/Cache.cc \
+	src/cdn/content/Cache.h \
+	src/cdn/content/Video.h \
+	src/cdn/content/Segment.h
 $O/src/cdn/content/LruCache.o: src/cdn/content/LruCache.cc \
-	src/cdn/content/Segment.h \
+	src/cdn/content/Cache.h \
 	src/cdn/content/LruCache.h \
 	src/cdn/execption/Exceptions.h \
 	src/cdn/content/Video.h \
-	src/cdn/content/Cache.h
+	src/cdn/content/Segment.h
+$O/src/cdn/content/Segment.o: src/cdn/content/Segment.cc \
+	src/cdn/content/Segment.h
+$O/src/cdn/content/VideoSet.o: src/cdn/content/VideoSet.cc \
+	src/cdn/content/VideoSet.h \
+	src/cdn/content/Video.h \
+	src/cdn/content/Segment.h
 $O/src/cdn/message/requestCDN_m.o: src/cdn/message/requestCDN_m.cc \
 	src/cdn/message/requestCDN_m.h
 $O/src/cdn/node/Indexer.o: src/cdn/node/Indexer.cc \
-	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
-	src/cdn/content/VideoSet.h \
-	src/cdn/node/Indexer.h \
-	$(INET_PROJ)/src/base/INETDefs.h \
-	src/cdn/content/Video.h \
+	src/cdn/content/Cache.h \
+	$(INET_OLD_PROJ)/src/networklayer/contract/IPAddressResolver.h \
+	$(INET_OLD_PROJ)/src/networklayer/contract/IPv6Address.h \
 	src/cdn/node/Storage.h \
-	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
+	src/cdn/node/Indexer.h \
 	src/cdn/node/Reflector.h \
-	src/cdn/content/Segment.h \
-	$(INET_PROJ)/src/networklayer/contract/IPAddressResolver.h \
+	$(INET_OLD_PROJ)/src/networklayer/contract/IPvXAddress.h \
 	src/cdn/content/LruCache.h \
-	$(INET_PROJ)/src/networklayer/contract/IPvXAddress.h \
-	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
-	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
-	src/cdn/content/Cache.h
-$O/src/cdn/node/Processor.o: src/cdn/node/Processor.cc \
-	src/cdn/node/Processor.h
+	$(INET_OLD_PROJ)/src/networklayer/contract/IPAddress.h \
+	src/cdn/content/VideoSet.h \
+	src/cdn/content/Video.h \
+	$(INET_OLD_PROJ)/src/transport/contract/UDPControlInfo_m.h \
+	$(INET_OLD_PROJ)/src/transport/contract/UDPSocket.h \
+	src/cdn/content/Segment.h \
+	$(INET_OLD_PROJ)/src/base/INETDefs.h
 $O/src/cdn/node/Storage.o: src/cdn/node/Storage.cc \
 	src/cdn/content/VideoSet.h \
-	src/cdn/content/Segment.h \
 	src/cdn/content/Video.h \
-	src/cdn/node/Storage.h
-$O/src/cdn/node/Client.o: src/cdn/node/Client.cc \
-	$(INET_PROJ)/src/transport/contract/UDPSocket.h \
-	$(INET_PROJ)/src/transport/contract/UDPControlInfo_m.h \
-	src/cdn/builder/NetConfigurator.h \
-	$(INET_PROJ)/src/networklayer/contract/IPAddressResolver.h \
-	$(INET_PROJ)/src/networklayer/contract/IPvXAddress.h \
-	$(INET_PROJ)/src/base/INETDefs.h \
-	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
-	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
-	src/cdn/message/requestCDN_m.h \
-	$(INET_PROJ)/src/networklayer/autorouting/FlatNetworkConfigurator.h \
-	src/cdn/node/Client.h
+	src/cdn/node/Storage.h \
+	src/cdn/content/Segment.h
 $O/src/cdn/node/Reflector.o: src/cdn/node/Reflector.cc \
 	src/cdn/node/Reflector.h \
-	src/cdn/content/Segment.h \
+	src/cdn/content/Cache.h \
 	src/cdn/content/LruCache.h \
 	src/cdn/content/Video.h \
-	src/cdn/content/Cache.h
+	src/cdn/content/Segment.h
+$O/src/cdn/node/Client.o: src/cdn/node/Client.cc \
+	$(INET_OLD_PROJ)/src/networklayer/contract/IPAddressResolver.h \
+	$(INET_OLD_PROJ)/src/linklayer/contract/MACAddress.h \
+	$(INET_OLD_PROJ)/src/networklayer/contract/IPv6Address.h \
+	$(INET_OLD_PROJ)/src/networklayer/common/InterfaceTable.h \
+	$(INET_OLD_PROJ)/src/base/ModuleAccess.h \
+	$(INET_OLD_PROJ)/src/networklayer/autorouting/FlatNetworkConfigurator.h \
+	src/cdn/builder/NetConfigurator.h \
+	$(INET_OLD_PROJ)/src/networklayer/ipv4/IPRoute.h \
+	$(INET_OLD_PROJ)/src/networklayer/contract/IPvXAddress.h \
+	src/cdn/message/requestCDN_m.h \
+	$(INET_OLD_PROJ)/src/networklayer/contract/IPAddress.h \
+	$(INET_OLD_PROJ)/src/networklayer/ipv4/IRoutingTable.h \
+	$(INET_OLD_PROJ)/src/base/NotifierConsts.h \
+	$(INET_OLD_PROJ)/src/networklayer/common/InterfaceToken.h \
+	$(INET_OLD_PROJ)/src/networklayer/common/InterfaceEntry.h \
+	$(INET_OLD_PROJ)/src/networklayer/common/IInterfaceTable.h \
+	$(INET_OLD_PROJ)/src/transport/contract/UDPControlInfo_m.h \
+	$(INET_OLD_PROJ)/src/base/INotifiable.h \
+	$(INET_OLD_PROJ)/src/base/NotificationBoard.h \
+	src/cdn/node/Client.h \
+	$(INET_OLD_PROJ)/src/transport/contract/UDPSocket.h \
+	$(INET_OLD_PROJ)/src/base/INETDefs.h
+$O/src/cdn/node/Processor.o: src/cdn/node/Processor.cc \
+	src/cdn/node/Processor.h
 
