@@ -15,17 +15,16 @@ public:
 	int getCDNId();
 	const char *getCDNName();
 	void addVideo(Video *video);
-	void addVideo(map<int, Video*> videoMap);
-	map<int, Video*> getVideoMap();
-	Video *getVideo(int id);
+	void addVideo(vector<Video*> videoMap);
+	vector<Video*> getVideoVector();
+	Video *getVideoById(int id);
 	int getSizeVideo();
-	int getNumberSegment();
 	static const double SIZE_SEG;
 
 private:
 	int _id;
 	int _cdnId;
-	map<int, Video*> _videoMap;
+	vector<Video*> _videoVector;
 };
 
 #endif /* VIDEOSET_H_ */

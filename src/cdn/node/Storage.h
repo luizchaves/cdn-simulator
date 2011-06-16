@@ -28,12 +28,13 @@
 class Storage : public cSimpleModule
 {
   public:
-	vector<VideoSet*> getVideoSet();
+	vector<VideoSet*> getVideoSetVector();
+    void showVideoSet();
   protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
   private:
-    vector<VideoSet*> _videoSet;
+    vector<VideoSet*> _videoSetVector;
 };
 
 #endif

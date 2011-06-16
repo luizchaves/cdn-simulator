@@ -40,9 +40,15 @@ void Client::handleMessage(cMessage *msg)
 			}
 		}
 	}
-	std::cout << "Module Name " << moduleIndexer->getFullName() << endl;
+	//std::cout << "Module Name " << moduleIndexer->getFullName() << endl;
 	bindToPort(1000);
 	cPacket *newMsg = new cPacket();
+	std::string content("1,cdn1");
+	RequestContentCDN *d = new RequestContentCDN;
+	d->groupID = 1;
+	d->contentID = 1;
+	d->client = getParentModule();
+	newMsg->setContextPointer(d);
 	IPvXAddress serverAddress = IPAddressResolver().addressOf(moduleIndexer);
 	std::cout << "Requesting video stream from " << serverAddress << ":" << 1000 << "\n";
 	sendToUDP(newMsg, 1000, serverAddress, 1000);

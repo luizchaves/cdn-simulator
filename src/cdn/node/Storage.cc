@@ -18,28 +18,73 @@
 
 Define_Module(Storage);
 
+void Storage::showVideoSet()
+{
+	int i = 1;
+	std::cout <<  "---------------------"<<endl;
+    for(vector<VideoSet*>::iterator itVideoSet = this->_videoSetVector.begin();itVideoSet < this->_videoSetVector.end();itVideoSet++){
+        //Add videoSet in vector
+        VideoSet *videoSet = (*itVideoSet);
+        vector<Video*> videoVector = videoSet->getVideoVector();
+        std::cout <<  i << "-" << this->_videoSetVector.size() << " VSID " << videoSet->getId() << " CDNID " << videoSet->getCDNId() << " VIDEOS " << videoSet->getSizeVideo() << endl;
+        i++;
+        int j = 1;
+        for(vector<Video*>::iterator itVideo = videoVector.begin();itVideo < videoVector.end();itVideo++){
+        	Video *video = (*itVideo);
+        	vector<Segment*> segmentVector = video->getSegmentVector();
+        	std::cout << j << "-" << videoSet->getSizeVideo() << " VID " << video->getId() << " SEGMENTS " << video->getSizeSegment() << endl;
+        	j++;
+        	int l = 1;
+        	for(vector<Segment*>::iterator itSegment = segmentVector.begin(); itSegment < segmentVector.end();itSegment++){
+        		Segment *segment = (*itSegment);
+        		if(segment == NULL)
+        			continue;
+        		std::cout << l << "-" << video->getSizeSegment() << " SID " << segment->getId() << endl;//" START " << s->getStart() << endl;
+        		l++;
+        	}
+        }
+    }
+    std::cout <<  "---------------------"<<endl;
+}
+
 void Storage::initialize()
 {
-	int numberVideo = uniform(0, 100, (int) dblrand()*1000);
-	//TODO criar varias videoset
-	VideoSet videoSet(time(NULL), 1, "ITVp");
-	for (int i = 0; i < numberVideo; i++) {
+
+	//Não está funcionando
+	srand(time(NULL));
+	int numberVideo = uniform(1, 100, (int)(dblrand()) * 1000);
+    //TODO criar varias videoset para varios cdn
+	int id = rand();
+	std::cout << "VSID " << id << " Number Video " << numberVideo << endl;
+    VideoSet* videoSet = new VideoSet(id, 1, "ITVp");
+    for (int i = 0; i < numberVideo; i++) {
 		//TODO pegar bernauli e bitarte para saber o tamanho do video e depois o num de seg
-		int numberSegment = uniform(0, 100, (int) dblrand()*1000);
-		Video video(time(NULL), uniform(0, 100, (int) dblrand()*1000), 125);
+		//TODO reduzir tamanho inicial para zero
+    	int videoSize = uniform(1000000, 10000000, (int) dblrand()*1000);
+		int numberSegment = ceil(videoSize / VideoSet::SIZE_SEG);
+		id = rand();
+		std::cout << "VID " << id << " Number Segment " << numberSegment << endl;
+		Video* video = new Video(id, videoSize, 125);
 			for (int j = 0; j < numberSegment; j++){
-				Segment segment(time(NULL), VideoSet::SIZE_SEG, j*VideoSet::SIZE_SEG);
-				video.addSegment(&segment);
+				id = rand();
+				std::cout << "SID " << id << endl;
+				Segment* segment = new Segment(id, VideoSet::SIZE_SEG, j*VideoSet::SIZE_SEG);
+				//std::cout << "->" << video.getSizeSegment() << endl;
+				video->addSegment(segment);
+				//std::cout << "-->" << video.getSizeSegment() << endl;
 			}
-		videoSet.addVideo(&video);
+		//std::cout << "->" << videoSet.getSizeVideo() << endl;
+		videoSet->addVideo(video);
+		//std::cout << "-->" << videoSet.getSizeVideo() << endl;
 	}
-	this->_videoSet.push_back(&videoSet);
+    this->_videoSetVector.push_back(videoSet);
+    showVideoSet();
 }
 
 void Storage::handleMessage(cMessage *msg)
 {
 }
 
-vector<VideoSet*> Storage::getVideoSet() {
-	return this->_videoSet;
+vector<VideoSet*> Storage::getVideoSetVector() {
+	return this->_videoSetVector;
 }

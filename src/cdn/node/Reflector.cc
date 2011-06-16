@@ -19,8 +19,13 @@ Define_Module(Reflector);
 
 void Reflector::initialize()
 {
+	//TODO Create outros cache de cdn
 	LruCache cache(time(NULL), 1, 1000000000.0, 0);
-	this->_cache.push_back(&cache);
+	this->_cacheVector.push_back(&cache);
+	for(vector<Cache*>::iterator it = this->_cacheVector.begin(); it < this->_cacheVector.end(); it++){
+		Cache* c = (*it);
+		std::cout << "<->" << c->getCDNId() << endl;
+	}
 }
 
 void Reflector::handleMessage(cMessage *msg)
@@ -29,10 +34,12 @@ void Reflector::handleMessage(cMessage *msg)
 }
 
 Cache* Reflector::getCache(int cdnId){
-	// TODO fazer a consulta
+	for(vector<Cache*>::iterator it = this->_cacheVector.begin(); it != this->_cacheVector.end(); it++)
+		if((*it)->getCDNId() == cdnId)
+			return (*it);
 	return NULL;
 }
 
 vector<Cache*> Reflector::getCacheVector(){
-	return this->_cache;
+	return this->_cacheVector;
 }

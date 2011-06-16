@@ -22,7 +22,7 @@ network Dynamic
 {
     submodules:
         builder: NetBuilderCDN {
-            routersFile = "/home/lucachaves/omnetpp-4.1/samples/cdn-simulator/src/cdn/builder/configFile/routersRNP.txt";
+            routersFile = "/home/lucachaves/omnetpp-4.1/samples/cdn-simulator/src/cdn/builder/configFile/routers.txt";
             elementsFile = "/home/lucachaves/omnetpp-4.1/samples/cdn-simulator/src/cdn/builder/configFile/elements.txt";
             clientsFile = "/home/lucachaves/omnetpp-4.1/samples/cdn-simulator/src/cdn/builder/configFile/clients.txt";
             @display("p=52,62");

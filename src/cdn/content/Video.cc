@@ -22,16 +22,21 @@ double Video::getBitrate() {
 }
 
 void Video::addSegment(Segment *segment) {
-	this->_segmentMap.insert(make_pair(segment->getId(), segment));
+	this->_segmentVector.push_back(segment);
 }
 
-Segment *Video::getSegment(int id) {
-	map<int, Segment*>::iterator segPos= this->_segmentMap.find(id);
-	if(segPos == this->_segmentMap.end())
-		return NULL;
-	return (*segPos).second;
+Segment *Video::getSegmentById(int id) {
+	for(vector<Segment*>::iterator it = this->_segmentVector.begin(); it < this->_segmentVector.end(); it++){
+		if((*it)->getId() == id)
+			return (*it);
+	}
+	return NULL;
 }
 
-int Video::getNumberSegment(){
-	return this->_segmentMap.size();
+int Video::getSizeSegment(){
+	return this->_segmentVector.size();
+}
+
+vector<Segment*> Video::getSegmentVector(){
+	return this->_segmentVector;
 }

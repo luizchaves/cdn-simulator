@@ -22,6 +22,7 @@
 #include <UDPControlInfo_m.h>
 #include <IPAddressResolver.h>
 #include <NetConfigurator.h>
+#include <RequestContentCDN.h>
 
 /**
  * TODO - Generated class
