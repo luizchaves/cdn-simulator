@@ -23,6 +23,5 @@ int Segment::getId() {
 
 Segment* Segment::clone(){
 	Segment* cloned = this;
-
 	return cloned;
 }

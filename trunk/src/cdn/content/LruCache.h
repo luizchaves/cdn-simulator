@@ -18,7 +18,7 @@ class LruCache : public Cache{
 		double _totalCapacity;
 		double _availableSpace;
 
-		map<int, Segment*> _cacheSegments;
+		vector<Segment*> _cacheSegments;
 		map<int, Segment*> objectsReferenceMap;
 
 		vector<Segment*> _lruQueue;//_lruQueue.begin() is the oldest object
@@ -44,8 +44,8 @@ class LruCache : public Cache{
 		int getId();
 		int getCDNId();
 		int getNumberSegment();
-		map<int, Segment*> getSegmentMap();
-		void addSegment(map<int, Segment*> segmentMap);
+		vector<Segment*> getSegmentVector();
+		void addSegment(vector<Segment*> segmentVector);
 
 
 		bool objectExists(int id);

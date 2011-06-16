@@ -34,7 +34,7 @@ class Reflector : public cSimpleModule
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
   private:
-    vector<Cache*> _cache;
+    vector<Cache*> _cacheVector;
 
 };
 

@@ -84,17 +84,19 @@ void LruCache::_freeSpace(double size){
 			throw cRuntimeError("Empty lru while still removing objects (line: %d, file: %s)",  __LINE__, __FILE__);
 		}
 
-		map<int, Segment*>::iterator mapPos;
+		vector<Segment*>::iterator cachePos;
 		vector<Segment*>::iterator vecPos;
 
-		mapPos = this->_cacheSegments.find(this->_lruQueue.at(0)->getId());
+		for(vector<Segment*>::iterator it = this->_cacheSegments.begin(); it < this->_cacheSegments.end(); it++)
+			if((*it)->getId() == this->_lruQueue.at(0)->getId())
+				cachePos = it;
 		vecPos = this->_lruQueue.begin();
 
 		size -= this->_lruQueue.at(0)->getSize();
 		_availableSpace += this->_lruQueue.at(0)->getSize();
 
-		delete (*mapPos).second;
-		this->_cacheSegments.erase(mapPos);
+		delete (*cachePos);
+		this->_cacheSegments.erase(cachePos);
 		this->_lruQueue.erase(vecPos);
 	}
 }
@@ -105,15 +107,18 @@ LruCache::~LruCache(){
 }
 bool LruCache::objectExists(int id){
 	assert(id>=0);
-	return (this->_cacheSegments.find(id) != this->_cacheSegments.end());
+	for(vector<Segment*>::iterator it = this->_cacheSegments.begin(); it < this->_cacheSegments.end(); it++)
+		if((*it)->getId() == id)
+			return true;
+	return false;
 }
 
-map<int, Segment*> LruCache::getSegmentMap(){
+vector<Segment*> LruCache::getSegmentVector(){
 	return this->_cacheSegments;
 }
 
-void LruCache::addSegment(map<int, Segment*> segmentMap) {
-	this->_cacheSegments.insert(segmentMap.begin(), segmentMap.end());
+void LruCache::addSegment(vector<Segment*> segmentVector) {
+	this->_cacheSegments.insert(this->_cacheSegments.end(), segmentVector.begin(), segmentVector.end());
 }
 
 Segment* LruCache::getNonExistingObject(Segment* object){
@@ -139,7 +144,7 @@ Segment* LruCache::getNonExistingObject(Segment* object){
 	if(this->_availableSpace < object->getSize()){
 		this->_freeSpace(object->getSize() - this->_availableSpace);
 	}
-	this->_cacheSegments.insert(make_pair(object->getId(),object));
+	this->_cacheSegments.push_back(object);
 	this->_lruQueue.push_back(object);
 	this->_availableSpace -= object->getSize();
 	return object;

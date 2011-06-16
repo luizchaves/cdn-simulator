@@ -9,6 +9,7 @@
 #include <UDPSocket.h>
 #include <UDPControlInfo_m.h>
 #include <IPAddressResolver.h>
+#include <RequestContentCDN.h>
 
 class Indexer : public cSimpleModule
 {
@@ -38,9 +39,10 @@ class Indexer : public cSimpleModule
   protected:
     virtual void initialize(int stage);
     virtual void handleMessage(cMessage *msg);
+
   public:
-	cModule *getContentInStorage(Segment *segment);
-	cModule *getContentInRefletor(Segment *segment);
+	cModule *getContentInStorage(Segment *segment, int modId);
+	cModule *getContentInRefletor(Segment *segment, int modId);
 };
 
 #endif

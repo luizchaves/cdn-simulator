@@ -6,6 +6,7 @@
 #include <omnetpp.h>
 #include <crng.h>
 #include <NetConfigurator.h>
+#include <Processor.h>
 
 /**
  * Builds a network dynamically, with the topology coming from a
@@ -29,8 +30,9 @@ protected:
 	int numberReflector;
 	int numberProcessor;
 	int numberClient;
+	int numberClientTotal;
 private:
-	std::map<long, cModule*> generateModuleCDN(cModule *parent);
+	void generateModuleCDN(cModule *parent);
 	void generateClientCDN(cModule *parent);
 	void generateConnectionCDNRandom(std::map<long, cModule*> & nodeid2mod);
     float extractDataRatio(std::string valueEnlace);
@@ -45,6 +47,8 @@ void NetBuilderCDN::initialize() {
 	numberReflector = 0;
 	numberProcessor = 0;
 	numberClient = 0;
+	//TODO pegar parametrizado
+	numberClientTotal = 2;
 	scheduleAt(0, new cMessage("BuildCDN", 1));
 }
 
@@ -54,8 +58,8 @@ void NetBuilderCDN::handleMessage(cMessage *msg) {
 	delete msg;
 	if(msg->getKind() == 1)
 		buildNetwork(getParentModule());
-	if(msg->getKind() == 2)
-		generateClientCDN(getParentModule());
+//	if(msg->getKind() == 2)
+//		generateClientCDN(getParentModule());
 }
 
 void NetBuilderCDN::connect(cGate *src, cGate *dest, double delay, double ber,
@@ -107,11 +111,245 @@ float NetBuilderCDN::extractDataRatio(std::string valueEnlace)
 
     return datarate;
 }
-std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
+
+void NetBuilderCDN::buildNetwork(cModule *parent) {
+	generateModuleCDN(parent);
+	generateClientCDN(parent);
+
+	std::map<long, cModule *>::iterator it;
+	// final touches: buildinside, initialize()
+	for (it = nodeid2mod.begin(); it != nodeid2mod.end(); ++it) {
+		cModule *mod = it->second;
+		mod->buildInside();
+	}
+
+	// multi-stage init
+	bool more = true;
+	for (int stage = 0; more; stage++) {
+		more = false;
+		for (it = nodeid2mod.begin(); it != nodeid2mod.end(); ++it) {
+			cModule *mod = it->second;
+			if (mod->callInitialize(stage))
+				more = true;
+		}
+	}
+
+	//Config IP Net
+	for (cModule::SubmoduleIterator iter(getParentModule()); !iter.end(); iter++) {
+		if (strcmp(iter()->getFullName(), "netConfigurator") == 0) {
+			NetConfigurator* flatNet = (NetConfigurator*)iter();
+			flatNet->configNet();
+		}
+	}
+
+	//load Distances
+	map<int, VideoSet*> cdnStorageContentMap;
+	map<int, Cache*> cdnRefletorContentMap;
+
+	map<int, int> _refletorIdToIndex;
+	map<int, int> _storageIdToIndex;
+	map<int, int> _clientIdToIndex;
+
+	vector<cModule*> refletor;
+	vector<cModule*> storage;
+	vector<cModule*> client;
+
+	map<int, int> _closestStorageToRefletor;
+	map<int, int> _closestRefletorToClient;
+
+	double** _refletorToRefletorDistance;
+	double** _storageToRefletorDistance;
+	double** _refletorToClientDistance;
+
+	cTopology topo("topo");
+	topo.extractByProperty("node");
+
+	//network's iterator
+	for (cModule::SubmoduleIterator iter(getParentModule()); !iter.end(); iter++) {
+		//CDNNode
+		if (strcmp(iter()->getModuleType()->getName(), "CDNNode") == 0) {
+			//Storage CDNNode
+			if (!strcmp(((cModule*) iter())->par("type"), "s")) {
+				std::cout << iter()->getFullName() << endl;
+				//insert storage CDNNode in vector
+				storage.push_back((cModule*) iter());
+				//get vector videoset from storage
+				Storage* storage;
+				for (cModule::SubmoduleIterator iterCDNContent(iter()); !iterCDNContent.end(); iterCDNContent++) {
+					if (!strcmp(((cModule*) iterCDNContent())->getName(), "udpApp"))
+						storage = (Storage*) iterCDNContent();
+				}
+				vector<VideoSet*> videoSetVector = storage->getVideoSetVector();
+				//VideoSet Iterator
+				for (vector<VideoSet*>::iterator it = videoSetVector.begin(); it < videoSetVector.end(); it++) {
+					//Add videoSet in vector
+					VideoSet* vs = (VideoSet*) (*it);
+					if (cdnStorageContentMap[vs->getCDNId()] == NULL) {
+						cdnStorageContentMap[vs->getCDNId()] = vs;
+					} else {
+						cdnStorageContentMap[vs->getCDNId()]->addVideo(vs->getVideoVector());
+					}
+				}
+			//Reflector CDNNode
+			} else if (!strcmp(((cModule*) iter())->par("type"), "r")) {
+				std::cout << iter()->getFullName() << endl;
+				//insert reflector CDNNode in vector
+				refletor.push_back(((cModule*) iter()));
+				//get vector cache from refletor
+				Reflector* reflector;
+				for (cModule::SubmoduleIterator iterCDNContent(iter()); !iterCDNContent.end(); iterCDNContent++) {
+					if (!strcmp(((cModule*) iterCDNContent())->getName(), "udpApp"))
+						reflector = (Reflector*) iterCDNContent();
+				}
+				vector<Cache*> cacheVector = reflector->getCacheVector();
+				//Cache Iterator
+				for (vector<Cache*>::iterator it = cacheVector.begin(); it < cacheVector.end(); it++) {
+					//Add cache in vector
+					//TODO Que porra é isso!!! Herança?
+					Cache* c = (*it);
+					if (cdnRefletorContentMap[c->getCDNId()] == NULL) {
+						cdnRefletorContentMap[c->getCDNId()] = c;
+					} else {
+						cdnRefletorContentMap[c->getCDNId()]->addSegment(c->getSegmentVector());
+					}
+				}
+			//Client CDNNode
+			} else if (!strcmp(((cModule*) iter())->par("type"), "c")) {
+				//insert client CDNNode in vector
+				client.push_back(((cModule*) iter()));
+			}
+		}
+	}
+
+	std::cout<< "----------------- Storage " << cdnStorageContentMap.size() << endl;
+	for ( map<int, VideoSet*>::iterator it=cdnStorageContentMap.begin() ; it != cdnStorageContentMap.end(); it++ ){
+		std::cout<< "-----------------CND ID " << (*it).second->getCDNId() << endl;
+		std::cout<< "-----------------VIDEO SET ID " << (*it).second->getId() << endl;
+		vector<Video*> videoSetMap = (*it).second->getVideoVector();
+		for (vector<Video*>::iterator itvs = videoSetMap.begin();	itvs != videoSetMap.end(); itvs++) {
+			std::cout<< "----------------- VIDEO " << (*itvs)->getId() << endl;
+		}
+	}
+	std::cout<< "----------------- Refletor " << cdnRefletorContentMap.size() << endl;
+//	for ( map<int, VideoSet*>::iterator it=cdnStorageContentMap.begin() ; it != cdnStorageContentMap.end(); it++ ){
+//		std::cout<< "-----------------CND ID " << (*it).second->getCDNId() << endl;
+//		std::cout<< "-----------------VIDEO SET ID " << (*it).second->getId() << endl;
+//		vector<Video*> videoSetMap = (*it).second->getVideoVector();
+//		for (vector<Video*>::iterator itvs = videoSetMap.begin();	itvs != videoSetMap.end(); itvs++) {
+//			std::cout<< "----------------- VIDEO " << (*itvs)->getId() << endl;
+//		}
+//	}
+
+
+	//mad ids to indexes
+	int index = 0;
+	for (vector<cModule*>::iterator tempIterator = refletor.begin(); tempIterator	!= refletor.end(); tempIterator++) {
+		_refletorIdToIndex.insert(make_pair((*tempIterator)->getId(), index));
+		index++;
+	}
+
+	index = 0;
+	for (vector<cModule*>::iterator tempIterator = client.begin(); tempIterator != client.end(); tempIterator++) {
+		_clientIdToIndex.insert(make_pair((*tempIterator)->getId(), index));
+		index++;
+	}
+
+	index = 0;
+	for (vector<cModule*>::iterator tempIterator = storage.begin(); tempIterator != storage.end(); tempIterator++) {
+		_storageIdToIndex.insert(make_pair((*tempIterator)->getId(), index));
+		index++;
+	}
+
+	//Setup refletor - refletor distances
+	_refletorToRefletorDistance = new double*[refletor.size()];
+
+	for (int i = 0; i <= (int) refletor.size() - 1; i++) {
+		_refletorToRefletorDistance[i] = new double[refletor.size()];
+	}
+
+	for (vector<cModule*>::iterator iteratorFrom = refletor.begin(); iteratorFrom < refletor.end(); iteratorFrom++) {
+		for (vector<cModule*>::iterator iteratorTo = refletor.begin(); iteratorTo < refletor.end(); iteratorTo++) {
+			cTopology::Node* refletorNodeFrom = topo.getNodeFor((*iteratorFrom));
+			cTopology::Node* refletorNodeTo = topo.getNodeFor((*iteratorTo));
+
+			topo.calculateUnweightedSingleShortestPathsTo(refletorNodeTo);
+			_refletorToRefletorDistance[_refletorIdToIndex[(*iteratorFrom)->getId()]]
+					[_refletorIdToIndex[(*iteratorTo)->getId()]]
+					= refletorNodeFrom->getDistanceToTarget();
+		}
+	}
+
+	//Setup storage - refletor distances
+	_storageToRefletorDistance = new double*[storage.size()];
+
+	for (int i = 0; i <= (int) storage.size() - 1; i++) {
+		_storageToRefletorDistance[i]	= new double[refletor.size()];
+	}
+
+	for (vector<cModule*>::iterator iteratorFrom = storage.begin(); iteratorFrom < storage.end(); iteratorFrom++) {
+		for (vector<cModule*>::iterator iteratorTo = refletor.begin(); iteratorTo < refletor.end(); iteratorTo++) {
+
+			cTopology::Node* storageNodeFrom = topo.getNodeFor((*iteratorFrom));
+			cTopology::Node* refletorNodeTo = topo.getNodeFor((*iteratorTo));
+
+			topo.calculateUnweightedSingleShortestPathsTo(refletorNodeTo);
+			_refletorToRefletorDistance[_refletorIdToIndex[(*iteratorFrom)->getId()]]
+					[_refletorIdToIndex[(*iteratorTo)->getId()]]
+					= storageNodeFrom->getDistanceToTarget();
+		}
+	}
+
+	//Setup refletor - client distances
+	_refletorToClientDistance = new double*[refletor.size()];
+
+	for (int i = 0; i <= (int) refletor.size() - 1; i++) {
+		_refletorToClientDistance[i] = new double[client.size()];
+	}
+
+	for (vector<cModule*>::iterator iteratorFrom = refletor.begin(); iteratorFrom < refletor.end(); iteratorFrom++) {
+		for (vector<cModule*>::iterator iteratorTo = client.begin(); iteratorTo < client.end(); iteratorTo++) {
+			cTopology::Node* refletorNodeFrom = topo.getNodeFor((*iteratorFrom));
+			cTopology::Node* clientNodeTo = topo.getNodeFor((*iteratorTo));
+
+			topo.calculateUnweightedSingleShortestPathsTo(clientNodeTo);
+			_refletorToRefletorDistance[_refletorIdToIndex[(*iteratorFrom)->getId()]]
+					[_clientIdToIndex[(*iteratorTo)->getId()]]
+					= refletorNodeFrom->getDistanceToTarget();
+		}
+	}
+
+	// Setup closest origin to surrogate server
+	for (int k = 0; k <= (int) refletor.size() - 1; k++) {
+		double minDistance = INT_MAX;
+		int selectedStorage = -1;
+		for (int i = 0; i <= (int) storage.size() - 1; i++) {
+			if (_storageToRefletorDistance[i][k] <= minDistance) {
+				minDistance = _storageToRefletorDistance[i][k];
+				selectedStorage = i;
+			}
+		}
+		_closestStorageToRefletor.insert(make_pair(k, selectedStorage));
+	}
+
+	// Setup closest surrogate server to client
+	for (int k = 0; k <= (int) client.size() - 1; k++) {
+		double minDistance = INT_MAX;
+		int selectedSurrogate = -1;
+		for (int i = 0; i <= (int) storage.size() - 1; i++) {
+			if (_refletorToClientDistance[i][k] <= minDistance) {
+				minDistance = _refletorToClientDistance[i][k];
+				selectedSurrogate = i;
+			}
+		}
+		_closestRefletorToClient.insert(make_pair(k, selectedSurrogate));
+	}
+
+}
+
+void NetBuilderCDN::generateModuleCDN(cModule *parent) {
 	std::string line;
 	std::fstream nodesFile(par("routersFile").stringValue(), std::ios::in);
 	std::fstream elementsFile(par("elementsFile").stringValue(), std::ios::in);
-	std::map<long, cModule*> nodeid2mod;
 	std::map<std::string, int> routersName;
 	std::map<std::string, int> storageName;
 	std::map<std::string, int> indexerName;
@@ -463,113 +701,56 @@ std::map<long, cModule*> NetBuilderCDN::generateModuleCDN(cModule *parent) {
 				}
 			}
 	}
-//	std::map<long, cModule *>::iterator it;
-//	// final touches: buildinside, initialize()
-//	for (it = nodeid2mod.begin(); it != nodeid2mod.end(); ++it) {
-//		cModule *mod = it->second;
-//		mod->buildInside();
-//	}
-//
-//	// multi-stage init
-//	bool more = true;
-//	for (int stage = 0; more; stage++) {
-//		more = false;
-//		for (it = nodeid2mod.begin(); it != nodeid2mod.end(); ++it) {
-//			cModule *mod = it->second;
-//			if (mod->callInitialize(stage))
-//				more = true;
-//		}
-//	}
-	return nodeid2mod;
 }
 
 void NetBuilderCDN::generateClientCDN(cModule *parent) {
-	cModuleType *modtype = cModuleType::get("src.cdn.node.CDNNode");
-	if(!modtype){
-		throw cRuntimeError("module type `%s' for node `%d' not found", "src.cdn.node.CDNNode", numberClient);
-	}
-
-	std::stringstream number;
-	number << numberClient;
-
-	cModule *mod = modtype->create("client", parent);
-	mod->setName(std::string("CL").append(number.str()).c_str());
-	mod->par("numUdpApps").setLongValue(1);
-	mod->par("udpAppType").setStringValue("Client");
-	mod->par("type").setStringValue("c");
-
-	std::cout << "Numero cliente " << numberRouter+numberStorage+numberIndexer+numberReflector+numberProcessor+numberClient << endl;
-	nodeid2mod[numberRouter+numberStorage+numberIndexer+numberReflector+numberProcessor+numberClient] = mod;
-	// read params from the ini file, etc
-	mod->finalizeParameters();
-
-	long srcnodeid = (long) uniform(0, numberRouter, (int) dblrand()*1e6);
-	long destnodeid = numberRouter+numberStorage+numberIndexer+numberReflector+numberProcessor+numberClient;
-	double datarate = 100000000;
-	double delay = 0.01;
-	double error = 0;
-	std::cout << "Enlace " << srcnodeid << ", " << destnodeid << ", " << datarate << ", " << delay << endl;
-	if(nodeid2mod.find(srcnodeid) == nodeid2mod.end())
-		throw cRuntimeError("wrong line in connections file: node with id=%ld not found", srcnodeid);
-
-	if(nodeid2mod.find(destnodeid) == nodeid2mod.end())
-		throw cRuntimeError("wrong line in connections file: node with id=%ld not found", destnodeid);
-
-	cModule *srcmod = nodeid2mod[srcnodeid];
-	std::cout << "Connecting " << srcmod->getFullName();
-	cModule *destmod = nodeid2mod[destnodeid];
-	std::cout << " to " << destmod->getFullName() << endl;
-	cGate *srcIn, *srcOut, *destIn, *destOut;
-	srcmod->getOrCreateFirstUnconnectedGatePair("pppg", false, true, srcIn, srcOut);
-	destmod->getOrCreateFirstUnconnectedGatePair("pppg", false, true, destIn, destOut);
-	// connect
-	connect(srcOut, destIn, delay, error, datarate);
-	connect(destOut, srcIn, delay, error, datarate);
-	numberClient++;
-
-//	srcmod->buildInside();
-//	destmod->buildInside();
-
-	std::map<long, cModule *>::iterator it;
-	// final touches: buildinside, initialize()
-	for (it = nodeid2mod.begin(); it != nodeid2mod.end(); ++it) {
-		cModule *mod = it->second;
-		mod->buildInside();
-	}
-
-	// multi-stage init
-	bool more = true;
-	for (int stage = 0; more; stage++) {
-		more = false;
-		for (it = nodeid2mod.begin(); it != nodeid2mod.end(); ++it) {
-			cModule *mod = it->second;
-			if (mod->callInitialize(stage))
-				more = true;
+	for(int client = 0; client < numberClientTotal; client++){
+		cModuleType *modtype = cModuleType::get("src.cdn.node.CDNNode");
+		if(!modtype){
+			throw cRuntimeError("module type `%s' for node `%d' not found", "src.cdn.node.CDNNode", numberClient);
 		}
+
+		std::stringstream number;
+		number << numberClient;
+
+		cModule *mod = modtype->create("client", parent);
+		mod->setName(std::string("CL").append(number.str()).c_str());
+		mod->par("numUdpApps").setLongValue(1);
+		mod->par("udpAppType").setStringValue("Client");
+		mod->par("type").setStringValue("c");
+
+		//std::cout << "Numero cliente " << numberRouter+numberStorage+numberIndexer+numberReflector+numberProcessor+numberClient << endl;
+		nodeid2mod[numberRouter+numberStorage+numberIndexer+numberReflector+numberProcessor+numberClient] = mod;
+		// read params from the ini file, etc
+		mod->finalizeParameters();
+
+		long srcnodeid = (long) uniform(0, numberRouter, (int) dblrand()*1e6);
+		long destnodeid = numberRouter+numberStorage+numberIndexer+numberReflector+numberProcessor+numberClient;
+		double datarate = 100000000;
+		double delay = 10;
+		double error = 0;
+		EV << "Enlace " << srcnodeid << ", " << destnodeid << ", " << datarate << ", " << delay << endl;
+		if(nodeid2mod.find(srcnodeid) == nodeid2mod.end())
+			throw cRuntimeError("wrong line in connections file: node with id=%ld not found", srcnodeid);
+
+		if(nodeid2mod.find(destnodeid) == nodeid2mod.end())
+			throw cRuntimeError("wrong line in connections file: node with id=%ld not found", destnodeid);
+
+		cModule *srcmod = nodeid2mod[srcnodeid];
+		//std::cout << "Connecting " << srcmod->getFullName();
+		cModule *destmod = nodeid2mod[destnodeid];
+		//std::cout << " to " << destmod->getFullName() << endl;
+		cGate *srcIn, *srcOut, *destIn, *destOut;
+		srcmod->getOrCreateFirstUnconnectedGatePair("pppg", false, true, srcIn, srcOut);
+		destmod->getOrCreateFirstUnconnectedGatePair("pppg", false, true, destIn, destOut);
+		// connect
+		connect(srcOut, destIn, delay, error, datarate);
+		connect(destOut, srcIn, delay, error, datarate);
+		numberClient++;
 	}
-	for (cModule::SubmoduleIterator iter(getParentModule()); !iter.end(); iter++) {
-		std::cout << iter()->getFullName() << endl;
-		if (strcmp(iter()->getFullName(), "netConfigurator") == 0) {
-			NetConfigurator* flatNet = (NetConfigurator*)iter();
-			flatNet->configNode(mod);
-		}
-	}
+
 	//TODO se a quantidade de clientes ativos ainda não foi atingido pode enviar uma nova messagem
-	if(numberClient < 1)
-		scheduleAt(simTime()+exponential(1.0), new cMessage("BuildCDN", 2));
+//	if(numberClient < 1)
+//		scheduleAt(simTime()+exponential(1.0), new cMessage("BuildCDN", 2));
 }
-
-void NetBuilderCDN::buildNetwork(cModule *parent) {
-	nodeid2mod = generateModuleCDN(parent);
-	//TODO Generate Client e fluxo
-//	for (cModule::SubmoduleIterator iter(getParentModule()); !iter.end(); iter++) {
-//		if (strcmp(iter()->getFullName(), "netConfigurator") == 0) {
-//			NetConfigurator* flatNet = (NetConfigurator*)iter();
-//			flatNet->configNet();
-//		}
-//	}
-	scheduleAt(simTime(), new cMessage("BuildCDN", 2));
-}
-
-
 

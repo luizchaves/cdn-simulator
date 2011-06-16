@@ -1,7 +1,7 @@
 #ifndef VIDEO_H_
 #define VIDEO_H_
 
-#include <map>
+#include <vector>
 #include <Segment.h>
 
 using namespace std;
@@ -14,14 +14,15 @@ public:
 	int getId();
 	double getBitrate();
 	void addSegment(Segment *segment);
-	Segment *getSegment(int id);
-	int getNumberSegment();
+	Segment *getSegmentById(int id);
+	int getSizeSegment();
+	vector<Segment*> getSegmentVector();
 
 private:
 	int _id;
 	double _size;
 	double _bitrate;
-	map<int, Segment*> _segmentMap;
+	vector<Segment*> _segmentVector;
 };
 
 #endif /* VIDEO_H_ */
