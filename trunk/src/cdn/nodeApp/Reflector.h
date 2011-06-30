@@ -13,11 +13,30 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-package src.cdn.builder;
+#ifndef __CDN_REFLECTOR_H_
+#define __CDN_REFLECTOR_H_
 
-import inet.networklayer.autorouting.FlatNetworkConfigurator;
+#include <omnetpp.h>
+#include <map>
+#include <vector>
+#include <Cache.h>
+#include <LruCache.h>
 
-simple NetConfigurator extends FlatNetworkConfigurator
+/**
+ * TODO - Generated class
+ */
+class Reflector : public cSimpleModule
 {
+  public:
+	LruCache* getCacheById(int cdnId);
+	vector<LruCache*> getCacheVector();
+  protected:
+    virtual void initialize();
+    virtual void handleMessage(cMessage *msg);
+  private:
+    vector<LruCache*> _cacheVector;
+    void showCache();
 
-}
+};
+
+#endif

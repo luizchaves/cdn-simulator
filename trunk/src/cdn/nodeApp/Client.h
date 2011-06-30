@@ -13,25 +13,27 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#ifndef NETCONFIGURATOR_H_
-#define NETCONFIGURATOR_H_
+#ifndef __CDN_CLIENT_H_
+#define __CDN_CLIENT_H_
 
-#include <FlatNetworkConfigurator.h>
+#include <omnetpp.h>
+#include <requestCDN_m.h>
+#include <UDPSocket.h>
+#include <UDPControlInfo_m.h>
 #include <IPAddressResolver.h>
-#include <InterfaceEntry.h>
-#include <InterfaceTable.h>
-#include <IRoutingTable.h>
-#include <IPRoute.h>
+#include <RequestContentCDN.h>
 
-class NetConfigurator : public FlatNetworkConfigurator{
-
-protected:
-	NodeInfoVector* nodeInfo;
-public:
-	NetConfigurator();
-	virtual ~NetConfigurator();
-	void configNet();
-	void configNode(cModule* mod);
+/**
+ * TODO - Generated class
+ */
+class Client : public cSimpleModule
+{
+  public:
+	void bindToPort(int port);
+	void sendToUDP(cPacket *msg, int srcPort, const IPvXAddress& destAddr, int destPort);
+  protected:
+    virtual void initialize();
+    virtual void handleMessage(cMessage *msg);
 };
 
-#endif /* NETCONFIGURATOR_H_ */
+#endif

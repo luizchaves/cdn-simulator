@@ -1,7 +1,7 @@
 package src.cdn.builder.old;
 
 import inet.nodes.inet.Router;
-import src.cdn.node.CDNNode;
+import src.cdn.nodeApp.CDNNode;
 import ned.DatarateChannel;
 
 //types:
