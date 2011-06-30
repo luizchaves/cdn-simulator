@@ -180,10 +180,11 @@ void Indexer::handleMessage(cMessage *msg) {
 		std::cout << "Indexer Content" << endl;
 		networkIndexer(getParentModule()->getParentModule());
 	} else{
-		/*if(msg->arrivedOn("udpIn")){
+		if(msg->arrivedOn("udpIn")){
+			RequestContentCDN *req = (RequestContentCDN *)msg->getContextPointer();
 
 		}
-		if (strcmp(((cModule*)msg->getContextPointer())->par("type").stringValue(),"c")==0){
+		/*if (strcmp(((cModule*)msg->getContextPointer())->par("type").stringValue(),"c")==0){
 				//TODO Procurar no refletor
 				//TODO Procurar no storage
 				//TODO Requisita para o cliente o segmento
