@@ -10,7 +10,8 @@ When LruCache is destroyed it destroyes every object stored.
 To avoid problems just make extra copies of the objects.
 */
 using namespace std;
-class LruCache : public Cache{
+//TODO Ver problemas de herança
+class LruCache /*: public Cache*/{
 	private:
 		int _id;
 		int _cdnId;

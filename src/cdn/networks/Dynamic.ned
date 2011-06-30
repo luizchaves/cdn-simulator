@@ -9,12 +9,11 @@
 
 package src.cdn.networks;
 
-//import inet.networklayer.autorouting.FlatNetworkConfigurator;
+import inet.networklayer.autorouting.FlatNetworkConfigurator;
 import inet.nodes.inet.Router;
 import inet.world.ChannelInstaller;
-import src.cdn.node.CDNNode;
+import src.cdn.nodeApp.CDNNode;
 import src.cdn.builder.NetBuilderCDN;
-import src.cdn.builder.NetConfigurator;
 import ned.DatarateChannel;
 
 
@@ -27,9 +26,10 @@ network Dynamic
             clientsFile = "/home/lucachaves/omnetpp-4.1/samples/cdn-simulator/src/cdn/builder/configFile/clients.txt";
             @display("p=52,62");
         }
-        netConfigurator: NetConfigurator {
-            @display("p=191,62");
-        }
+        //netConfigurator: NetConfigurator {
+        //    @display("p=191,62");
+        //}
+        
 }
 
 

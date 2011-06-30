@@ -1,0 +1,20 @@
+version 2
+run General-0-20110630-12:32:04-8503
+attr configname General
+attr datetime 20110630-12:32:04
+attr experiment General
+attr inifile /home/lucachaves/omnetpp-4.1/samples/cdn-simulator/src/cdn/omnetpp.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=0
+attr measurement ""
+attr network src.cdn.networks.Dynamic
+attr processid 8503
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+
+vector 20  Dynamic.RN.ppp[1].queue  "queue length"  ETV
+20	29	10.0000028	1
+20	30	10.0000308	0

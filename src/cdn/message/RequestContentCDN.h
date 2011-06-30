@@ -12,8 +12,8 @@
 
 class RequestContentCDN {
 public:
-	int groupID;
-	int contentID;
+	int cdnID;
+	int segmentID;
 	cModule *client;
 	RequestContentCDN();
 	virtual ~RequestContentCDN();
