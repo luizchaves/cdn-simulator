@@ -1,0 +1,1 @@
+Generate model of network for simulate CDN
